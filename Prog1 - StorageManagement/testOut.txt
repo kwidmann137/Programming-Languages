@@ -1,0 +1,494 @@
+Metadata
+Node Type  Beg Attr Sub Total Sz
+Customer      0           48
+		Attribute Name Type Offset Size
+		customerId       S       0    8
+		name             S       8   16
+		pFirstItem       P      24    8
+		pNextCust        P      32    8
+		balance          D      40    8
+LineItem      5           32
+		Attribute Name Type Offset Size
+		productId        S       0   10
+		iQtyReq          I      12    4
+		dCost            D      16    8
+		pNextItem        P      24    8
+>>> ALLOC C111 Customer 111,Sal A Mander,NULL,NULL,100.00
+>>> PRTNODE C111
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c20        53      0    02431C25
+			Attr Name      Type Value     
+			customerId       S  111
+			name             S  Sal A Mander
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  100.000000
+>>> ALLOC C222 Customer 222,Barb Wire,NULL,NULL,200.00
+>>> ALLOC PPF001 LineItem PPF001,5,9.95,NULL
+>>> PRTALL
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c8a        37      1    02431C8F
+			Attr Name      Type Value     
+			productId        S  PPF001
+			iQtyReq          I  5
+			dCost            D  9.950000
+			pNextItem        P  00000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c55        53      0    02431C5A
+			Attr Name      Type Value     
+			customerId       S  222
+			name             S  Barb Wire
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  200.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c20        53      0    02431C25
+			Attr Name      Type Value     
+			customerId       S  111
+			name             S  Sal A Mander
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  100.000000
+
+*
+* associate customer 111 with a next pointing to 222
+*
+>>> ASSOC C111 pNextCust C222
+* customer 111's  pNextCust should point to 222
+>>> PRTNODE C111
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c20        53      0    02431C25
+			Attr Name      Type Value     
+			customerId       S  111
+			name             S  Sal A Mander
+			pFirstItem       P  00000000
+			pNextCust        P  02431C5A
+			balance          D  100.000000
+*
+* associate customer 111 to PPF001
+*
+>>> ASSOC C111 pFirstItem PPF001
+>>> PRTNODE C111
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c20        53      0    02431C25
+			Attr Name      Type Value     
+			customerId       S  111
+			name             S  Sal A Mander
+			pFirstItem       P  02431C8F
+			pNextCust        P  02431C5A
+			balance          D  100.000000
+* associate customer 222 to 333
+>>> ALLOC C333 Customer 333,Misty Wind,NULL,NULL,70.00
+>>> ASSOC C222 pNextCust C333
+*
+* 111 should point to 222 which points to 333
+* 111 should also point to PPF001
+*
+>>> PRTALL
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431caf        53      0    02431CB4
+			Attr Name      Type Value     
+			customerId       S  333
+			name             S  Misty Wind
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  70.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c8a        37      1    02431C8F
+			Attr Name      Type Value     
+			productId        S  PPF001
+			iQtyReq          I  5
+			dCost            D  9.950000
+			pNextItem        P  00000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c55        53      0    02431C5A
+			Attr Name      Type Value     
+			customerId       S  222
+			name             S  Barb Wire
+			pFirstItem       P  00000000
+			pNextCust        P  02431CB4
+			balance          D  200.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c20        53      0    02431C25
+			Attr Name      Type Value     
+			customerId       S  111
+			name             S  Sal A Mander
+			pFirstItem       P  02431C8F
+			pNextCust        P  02431C5A
+			balance          D  100.000000
+
+* add another customer
+>>> ALLOC C444 Customer 444,Emory Board,NULL,NULL,44.44
+>>> ASSOC C333 pNextCust C444
+>>> DUMP
+	Address  Mem   Size NodeType
+	02431C20 InUse   53   0
+			   02431C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
+			   02431C39 .  .  .  .  .  .  C  .  .  .  .  .  Z  .  C  .  .  .  .  .  
+			            00 00 00 00 8F 1C 43 02 00 00 00 00 5A 1C 43 02 00 00 00 00 
+			   02431C4D .  .  .  .  .  .  Y  @  
+			            00 00 00 00 00 00 59 40 
+	02431C55 InUse   53   0
+			   02431C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
+			   02431C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 1C 43 02 00 00 00 00 
+			   02431C82 .  .  .  .  .  .  i  @  
+			            00 00 00 00 00 00 69 40 
+	02431C8A InUse   37   1
+			   02431C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
+			   02431CA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			            66 E6 23 40 00 00 00 00 00 00 00 00 
+	02431CAF InUse   53   0
+			   02431CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
+			   02431CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 1C 43 02 00 00 00 00 
+			   02431CDC .  .  .  .  .  .  Q  @  
+			            00 00 00 00 00 80 51 40 
+	02431CE4 InUse   53   0
+			   02431CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
+			   02431CFD thru 02431D10 (1 lines) suppressed - all zero
+			   02431D11 .  .  .  .  Q  8  F  @  
+			            B8 1E 85 EB 51 38 46 40 
+	02431D19 Free   651
+			Next:00000000
+*
+* Allocate another node and associate it with 222
+* Allocate another line item and associate 555 to it
+*
+>>> ALLOC C555 Customer 555,Holly Graph,NULL,NULL,55.00
+>>> ASSOC C555 pNextCust C222
+>>> ALLOC SBB001 LineItem SBB001,2,19.95,NULL
+>>> ASSOC C555 pFirstItem SBB001
+*
+* assoc the line items
+*
+>>> ALLOC BOM001 LineItem BOM001,1,29.95,NULL
+>>> ASSOC SBB001 pNextItem BOM001
+*
+>>> ALLOC C666 Customer 666,Bob L Head,NULL,NULL,66.00
+>>> ASSOC C444 pNextCust C666
+*
+* Assoc C444 with a different customer,
+* causing the old customer assoc (C666) to not be associated
+*
+>>> ALLOC C777 Customer 777,Flo N Water,NULL,NULL,77.00
+>>> ASSOC C444 pNextCust C777
+*
+* Add many customers and line items
+*
+>>> ALLOC C888 Customer 888,Joe King,NULL,NULL,88.00
+>>> ALLOC C911 Customer 911,Lee King,NULL,NULL,91.00
+>>> ALLOC C922 Customer 922,Mae King,NULL,NULL,92.00
+>>> ALLOC MCW001 LineItem MCW001,1,12.45,NULL
+>>> ALLOC C933 Customer 933,Ray King,NULL,NULL,93.00
+>>> ALLOC C944 Customer 944,Freida King,NULL,NULL,94.00
+>>> ALLOC SSX001 LineItem SSX001,1,29.95,NULL
+>>> ASSOC MCW001 pNextItem SSX001
+>>> ALLOC TTP001 LineItem TTP001,2,9.95,NULL
+>>> DEREF SSX001
+>>> DUMP
+	Address  Mem   Size NodeType
+	02431C20 InUse   53   0
+			   02431C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
+			   02431C39 .  .  .  .  .  .  C  .  .  .  .  .  Z  .  C  .  .  .  .  .  
+			            00 00 00 00 8F 1C 43 02 00 00 00 00 5A 1C 43 02 00 00 00 00 
+			   02431C4D .  .  .  .  .  .  Y  @  
+			            00 00 00 00 00 00 59 40 
+	02431C55 InUse   53   0
+			   02431C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
+			   02431C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 1C 43 02 00 00 00 00 
+			   02431C82 .  .  .  .  .  .  i  @  
+			            00 00 00 00 00 00 69 40 
+	02431C8A InUse   37   1
+			   02431C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
+			   02431CA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			            66 E6 23 40 00 00 00 00 00 00 00 00 
+	02431CAF InUse   53   0
+			   02431CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
+			   02431CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 1C 43 02 00 00 00 00 
+			   02431CDC .  .  .  .  .  .  Q  @  
+			            00 00 00 00 00 80 51 40 
+	02431CE4 InUse   53   0
+			   02431CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
+			   02431CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 1D 43 02 00 00 00 00 
+			   02431D11 .  .  .  .  Q  8  F  @  
+			            B8 1E 85 EB 51 38 46 40 
+	02431D19 InUse   53   0
+			   02431D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
+			   02431D32 .  .  .  .  S  .  C  .  .  .  .  .  Z  .  C  .  .  .  .  .  
+			            00 00 00 00 53 1D 43 02 00 00 00 00 5A 1C 43 02 00 00 00 00 
+			   02431D46 .  .  .  .  .  .  K  @  
+			            00 00 00 00 00 80 4B 40 
+	02431D4E InUse   37   1
+			   02431D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
+			   02431D67 3  .  3  @  x  .  C  .  .  .  .  .  
+			            33 F3 33 40 78 1D 43 02 00 00 00 00 
+	02431D73 InUse   37   1
+			   02431D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
+			   02431D8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			            33 F3 3D 40 00 00 00 00 00 00 00 00 
+	02431D98 InUse   53   0
+			   02431D9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
+			   02431DB1 thru 02431DC4 (1 lines) suppressed - all zero
+			   02431DC5 .  .  .  .  .  .  P  @  
+			            00 00 00 00 00 80 50 40 
+	02431DCD InUse   53   0
+			   02431DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
+			   02431DE6 thru 02431DF9 (1 lines) suppressed - all zero
+			   02431DFA .  .  .  .  .  @  S  @  
+			            00 00 00 00 00 40 53 40 
+	02431E02 InUse   53   0
+			   02431E07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
+			   02431E1B thru 02431E2E (1 lines) suppressed - all zero
+			   02431E2F .  .  .  .  .  .  V  @  
+			            00 00 00 00 00 00 56 40 
+	02431E37 InUse   53   0
+			   02431E3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
+			   02431E50 thru 02431E63 (1 lines) suppressed - all zero
+			   02431E64 .  .  .  .  .  .  V  @  
+			            00 00 00 00 00 C0 56 40 
+	02431E6C InUse   53   0
+			   02431E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
+			   02431E85 thru 02431E98 (1 lines) suppressed - all zero
+			   02431E99 .  .  .  .  .  .  W  @  
+			            00 00 00 00 00 00 57 40 
+	02431EA1 InUse   37   1
+			   02431EA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
+			   02431EBA f  .  (  @  5  .  C  .  .  .  .  .  
+			            66 E6 28 40 35 1F 43 02 00 00 00 00 
+	02431EC6 InUse   53   0
+			   02431ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
+			   02431EDF thru 02431EF2 (1 lines) suppressed - all zero
+			   02431EF3 .  .  .  .  .  @  W  @  
+			            00 00 00 00 00 40 57 40 
+	02431EFB InUse   53   0
+			   02431F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
+			   02431F14 thru 02431F27 (1 lines) suppressed - all zero
+			   02431F28 .  .  .  .  .  .  W  @  
+			            00 00 00 00 00 80 57 40 
+	02431F30 InUse   37   1
+			   02431F35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
+			   02431F49 3  .  =  @  .  .  .  .  .  .  .  .  
+			            33 F3 3D 40 00 00 00 00 00 00 00 00 
+	02431F55 InUse   37   1
+			   02431F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
+			   02431F6E f  .  #  @  .  .  .  .  .  .  .  .  
+			            66 E6 23 40 00 00 00 00 00 00 00 00 
+	02431F7A Free    42
+			Next:00000000
+*
+* XXXXXX 1
+* This line item is smaller than the last free node;
+* however, the remaining free size is too small for a
+* free node.  We give NHC001 all of the free node's
+* size as its size.
+>>> PRTALL
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431efb        53      0    02431F00
+			Attr Name      Type Value     
+			customerId       S  944
+			name             S  Freida King
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  94.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431ea1        37      1    02431EA6
+			Attr Name      Type Value     
+			productId        S  MCW001
+			iQtyReq          I  1
+			dCost            D  12.450000
+			pNextItem        P  02431F35
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431e37        53      0    02431E3C
+			Attr Name      Type Value     
+			customerId       S  911
+			name             S  Lee King
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  91.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431e02        53      0    02431E07
+			Attr Name      Type Value     
+			customerId       S  888
+			name             S  Joe King
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  88.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431caf        53      0    02431CB4
+			Attr Name      Type Value     
+			customerId       S  333
+			name             S  Misty Wind
+			pFirstItem       P  00000000
+			pNextCust        P  02431CE9
+			balance          D  70.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431e6c        53      0    02431E71
+			Attr Name      Type Value     
+			customerId       S  922
+			name             S  Mae King
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  92.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c55        53      0    02431C5A
+			Attr Name      Type Value     
+			customerId       S  222
+			name             S  Barb Wire
+			pFirstItem       P  00000000
+			pNextCust        P  02431CB4
+			balance          D  200.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431d73        37      1    02431D78
+			Attr Name      Type Value     
+			productId        S  BOM001
+			iQtyReq          I  1
+			dCost            D  29.950000
+			pNextItem        P  00000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431ec6        53      0    02431ECB
+			Attr Name      Type Value     
+			customerId       S  933
+			name             S  Ray King
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  93.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c8a        37      1    02431C8F
+			Attr Name      Type Value     
+			productId        S  PPF001
+			iQtyReq          I  5
+			dCost            D  9.950000
+			pNextItem        P  00000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431d19        53      0    02431D1E
+			Attr Name      Type Value     
+			customerId       S  555
+			name             S  Holly Graph
+			pFirstItem       P  02431D53
+			pNextCust        P  02431C5A
+			balance          D  55.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431c20        53      0    02431C25
+			Attr Name      Type Value     
+			customerId       S  111
+			name             S  Sal A Mander
+			pFirstItem       P  02431C8F
+			pNextCust        P  02431C5A
+			balance          D  100.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431f55        37      1    02431F5A
+			Attr Name      Type Value     
+			productId        S  TTP001
+			iQtyReq          I  2
+			dCost            D  9.950000
+			pNextItem        P  00000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431ce4        53      0    02431CE9
+			Attr Name      Type Value     
+			customerId       S  444
+			name             S  Emory Board
+			pFirstItem       P  00000000
+			pNextCust        P  02431DD2
+			balance          D  44.440000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431d4e        37      1    02431D53
+			Attr Name      Type Value     
+			productId        S  SBB001
+			iQtyReq          I  2
+			dCost            D  19.950000
+			pNextItem        P  02431D78
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431d98        53      0    02431D9D
+			Attr Name      Type Value     
+			customerId       S  666
+			name             S  Bob L Head
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  66.000000
+	Alloc Address  Size Node Type Data Address  
+ 	0x2431dcd        53      0    02431DD2
+			Attr Name      Type Value     
+			customerId       S  777
+			name             S  Flo N Water
+			pFirstItem       P  00000000
+			pNextCust        P  00000000
+			balance          D  77.000000
+
+*
+* XXXXXX 2
+* Do a Garbage Collection ... should not collect anything
+* Note that SSX001 is still referenced by a linked list
+* so it shouldn't be freed.
+*
+>>> DUMP
+	Address  Mem   Size NodeType
+	02431C20 InUse   53   0
+			   02431C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
+			   02431C39 .  .  .  .  .  .  C  .  .  .  .  .  Z  .  C  .  .  .  .  .  
+			            00 00 00 00 8F 1C 43 02 00 00 00 00 5A 1C 43 02 00 00 00 00 
+			   02431C4D .  .  .  .  .  .  Y  @  
+			            00 00 00 00 00 00 59 40 
+	02431C55 InUse   53   0
+			   02431C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
+			   02431C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 1C 43 02 00 00 00 00 
+			   02431C82 .  .  .  .  .  .  i  @  
+			            00 00 00 00 00 00 69 40 
+	02431C8A InUse   37   1
+			   02431C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
+			   02431CA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			            66 E6 23 40 00 00 00 00 00 00 00 00 
+	02431CAF InUse   53   0
+			   02431CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
+			   02431CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 1C 43 02 00 00 00 00 
+			   02431CDC .  .  .  .  .  .  Q  @  
+			            00 00 00 00 00 80 51 40 
+	02431CE4 InUse   53   0
+			   02431CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
+			   02431CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  C  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 1D 43 02 00 00 00 00 
+			   02431D11 .  .  .  .  Q  8  F  @  
+			            B8 1E 85 EB 51 38 46 40 
+	02431D19 InUse   53   0
+			   02431D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
+			   02431D32 .  .  .  .  S  .  C  .  .  .  .  .  Z  .  C  .  .  .  .  .  
+			            00 00 00 00 53 1D 43 02 00 00 00 00 5A 1C 43 02 00 00 00 00 
+			   02431D46 .  .  .  .  .  .  K  @  
+			            00 00 00 00 00 80 4B 40 
+	02431D4E InUse   37   1
+			   02431D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00
