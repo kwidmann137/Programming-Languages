@@ -107,10 +107,8 @@ int main(int argc, char *argv[])
     // Print the metadata
     printMeta(&storageManager);
 
-    FILE *pFileIn = fopen("p1Input.txt", "r");
-
     // Process commands for manipulating user data nodes
-    processCommands(&storageManager, pFileIn);
+    processCommands(&storageManager, stdin);
     free(storageManager.pBeginStorage);
     printf("\n");
     return 0;
@@ -421,8 +419,10 @@ void processCommands(StorageManager *pMgr, FILE *pfileCommand)
         {  // Garbage Collection Process
             garbageCollection(pMgr, &mmResult);
         }
-        else if (strcmp(szCommand, "DUMP") == 0)
+        else if (strcmp(szCommand, "DUMP") == 0) {
             smDump(pMgr);
+            fflush(stdout);
+        }
         else if (strcmp(szCommand, "PRTNODE") == 0)
         {   // PRTNODE key
             char szKey[MAX_KEY_SIZE + 1];
@@ -518,7 +518,6 @@ void setData(StorageManager *pMgr, short shNodeType, char szInput[], char sbData
     // Loop through each of the user data's attributes.  The subscripts start with
     // shBeginMetaAttr from nodeTypeM and end when the corresponding metaAttr's node type is
     // different.
-
     for (iAt = pMgr->nodeTypeM[shNodeType].shBeginMetaAttr; pMgr->metaAttrM[iAt].shNodeType == shNodeType; iAt++)
     {
         pAttr = &(pMgr->metaAttrM[iAt]);   // slightly simplify the reference in the metaAttrM array

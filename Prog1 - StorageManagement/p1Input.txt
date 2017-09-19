@@ -68,6 +68,7 @@ DUMP
 * however, the remaining free size is too small for a
 * free node.  We give NHC001 all of the free node's
 * size as its size.
+ALLOC NHC001 LineItem NHC001,1,9.95,NULL
 PRTALL
 *
 * XXXXXX 2
