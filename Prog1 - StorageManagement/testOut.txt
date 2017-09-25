@@ -16,7 +16,7 @@ LineItem      5           32
 >>> ALLOC C111 Customer 111,Sal A Mander,NULL,NULL,100.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bc20
 	customerId     	S    	0    	111            
 	name           	S    	8    	Sal A Mander   
 	pFirstItem     	P    	24   	(nil)          
@@ -25,7 +25,7 @@ LineItem      5           32
 
 >>> PRTNODE C111
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc20        53      0    0171BC25
+ 	0x91bc20        53      0    0091BC25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
@@ -35,7 +35,7 @@ LineItem      5           32
 >>> ALLOC C222 Customer 222,Barb Wire,NULL,NULL,200.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bc55
 	customerId     	S    	0    	222            
 	name           	S    	8    	Barb Wire      
 	pFirstItem     	P    	24   	(nil)          
@@ -45,7 +45,7 @@ LineItem      5           32
 >>> ALLOC PPF001 LineItem PPF001,5,9.95,NULL
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bc8a
 	productId      	S    	0    	PPF001         
 	iQtyReq        	I    	12   	5              
 	dCost          	D    	16   	9.950000       
@@ -53,14 +53,14 @@ LineItem      5           32
 
 >>> PRTALL
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc8a        37      1    0171BC8F
+ 	0x91bc8a        37      1    0091BC8F
 			Attr Name      Type Value     
 			productId        S  PPF001
 			iQtyReq          I  5
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc55        53      0    0171BC5A
+ 	0x91bc55        53      0    0091BC5A
 			Attr Name      Type Value     
 			customerId       S  222
 			name             S  Barb Wire
@@ -68,7 +68,7 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  200.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc20        53      0    0171BC25
+ 	0x91bc20        53      0    0091BC25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
@@ -82,22 +82,22 @@ LineItem      5           32
 >>> ASSOC C111 pNextCust C222
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bc20
 	customerId     	S    	0    	111            
 	name           	S    	8    	Sal A Mander   
 	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bc5a      
+	pNextCust      	P    	32   	0x91bc5a       
 	balance        	D    	40   	100.000000     
 
 * customer 111's  pNextCust should point to 222
 >>> PRTNODE C111
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc20        53      0    0171BC25
+ 	0x91bc20        53      0    0091BC25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
 			pFirstItem       P  00000000
-			pNextCust        P  0171BC5A
+			pNextCust        P  0091BC5A
 			balance          D  100.000000
 *
 * associate customer 111 to PPF001
@@ -105,27 +105,27 @@ LineItem      5           32
 >>> ASSOC C111 pFirstItem PPF001
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bc20
 	customerId     	S    	0    	111            
 	name           	S    	8    	Sal A Mander   
-	pFirstItem     	P    	24   	0x171bc8f      
-	pNextCust      	P    	32   	0x171bc5a      
+	pFirstItem     	P    	24   	0x91bc8f       
+	pNextCust      	P    	32   	0x91bc5a       
 	balance        	D    	40   	100.000000     
 
 >>> PRTNODE C111
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc20        53      0    0171BC25
+ 	0x91bc20        53      0    0091BC25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
-			pFirstItem       P  0171BC8F
-			pNextCust        P  0171BC5A
+			pFirstItem       P  0091BC8F
+			pNextCust        P  0091BC5A
 			balance          D  100.000000
 * associate customer 222 to 333
 >>> ALLOC C333 Customer 333,Misty Wind,NULL,NULL,70.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bcaf
 	customerId     	S    	0    	333            
 	name           	S    	8    	Misty Wind     
 	pFirstItem     	P    	24   	(nil)          
@@ -135,11 +135,11 @@ LineItem      5           32
 >>> ASSOC C222 pNextCust C333
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bc55
 	customerId     	S    	0    	222            
 	name           	S    	8    	Barb Wire      
 	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
+	pNextCust      	P    	32   	0x91bcb4       
 	balance        	D    	40   	200.000000     
 
 *
@@ -148,7 +148,7 @@ LineItem      5           32
 *
 >>> PRTALL
 	Alloc Address  Size Node Type Data Address  
- 	0x171bcaf        53      0    0171BCB4
+ 	0x91bcaf        53      0    0091BCB4
 			Attr Name      Type Value     
 			customerId       S  333
 			name             S  Misty Wind
@@ -156,34 +156,34 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  70.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc8a        37      1    0171BC8F
+ 	0x91bc8a        37      1    0091BC8F
 			Attr Name      Type Value     
 			productId        S  PPF001
 			iQtyReq          I  5
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc55        53      0    0171BC5A
+ 	0x91bc55        53      0    0091BC5A
 			Attr Name      Type Value     
 			customerId       S  222
 			name             S  Barb Wire
 			pFirstItem       P  00000000
-			pNextCust        P  0171BCB4
+			pNextCust        P  0091BCB4
 			balance          D  200.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc20        53      0    0171BC25
+ 	0x91bc20        53      0    0091BC25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
-			pFirstItem       P  0171BC8F
-			pNextCust        P  0171BC5A
+			pFirstItem       P  0091BC8F
+			pNextCust        P  0091BC5A
 			balance          D  100.000000
 
 * add another customer
 >>> ALLOC C444 Customer 444,Emory Board,NULL,NULL,44.44
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bce4
 	customerId     	S    	0    	444            
 	name           	S    	8    	Emory Board    
 	pFirstItem     	P    	24   	(nil)          
@@ -193,48 +193,48 @@ LineItem      5           32
 >>> ASSOC C333 pNextCust C444
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bcaf
 	customerId     	S    	0    	333            
 	name           	S    	8    	Misty Wind     
 	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
+	pNextCust      	P    	32   	0x91bce9       
 	balance        	D    	40   	70.000000      
 
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD thru 0171BD10 (1 lines) suppressed - all zero
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD thru 0091BD10 (1 lines) suppressed - all zero
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 Free   651
+	0091BD19 Free   651
 			Next:00000000
 *
 * Allocate another node and associate it with 222
@@ -243,7 +243,7 @@ LineItem      5           32
 >>> ALLOC C555 Customer 555,Holly Graph,NULL,NULL,55.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bd19
 	customerId     	S    	0    	555            
 	name           	S    	8    	Holly Graph    
 	pFirstItem     	P    	24   	(nil)          
@@ -253,17 +253,17 @@ LineItem      5           32
 >>> ASSOC C555 pNextCust C222
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bd19
 	customerId     	S    	0    	555            
 	name           	S    	8    	Holly Graph    
 	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bc5a      
+	pNextCust      	P    	32   	0x91bc5a       
 	balance        	D    	40   	55.000000      
 
 >>> ALLOC SBB001 LineItem SBB001,2,19.95,NULL
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bd4e
 	productId      	S    	0    	SBB001         
 	iQtyReq        	I    	12   	2              
 	dCost          	D    	16   	19.950000      
@@ -272,11 +272,11 @@ LineItem      5           32
 >>> ASSOC C555 pFirstItem SBB001
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bd19
 	customerId     	S    	0    	555            
 	name           	S    	8    	Holly Graph    
-	pFirstItem     	P    	24   	0x171bd53      
-	pNextCust      	P    	32   	0x171bc5a      
+	pFirstItem     	P    	24   	0x91bd53       
+	pNextCust      	P    	32   	0x91bc5a       
 	balance        	D    	40   	55.000000      
 
 *
@@ -285,7 +285,7 @@ LineItem      5           32
 >>> ALLOC BOM001 LineItem BOM001,1,29.95,NULL
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bd73
 	productId      	S    	0    	BOM001         
 	iQtyReq        	I    	12   	1              
 	dCost          	D    	16   	29.950000      
@@ -294,17 +294,17 @@ LineItem      5           32
 >>> ASSOC SBB001 pNextItem BOM001
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bd4e
 	productId      	S    	0    	SBB001         
 	iQtyReq        	I    	12   	2              
 	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
+	pNextItem      	P    	24   	0x91bd78       
 
 *
 >>> ALLOC C666 Customer 666,Bob L Head,NULL,NULL,66.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bd98
 	customerId     	S    	0    	666            
 	name           	S    	8    	Bob L Head     
 	pFirstItem     	P    	24   	(nil)          
@@ -314,11 +314,11 @@ LineItem      5           32
 >>> ASSOC C444 pNextCust C666
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bce4
 	customerId     	S    	0    	444            
 	name           	S    	8    	Emory Board    
 	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bd9d      
+	pNextCust      	P    	32   	0x91bd9d       
 	balance        	D    	40   	44.440000      
 
 *
@@ -328,7 +328,7 @@ LineItem      5           32
 >>> ALLOC C777 Customer 777,Flo N Water,NULL,NULL,77.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bdcd
 	customerId     	S    	0    	777            
 	name           	S    	8    	Flo N Water    
 	pFirstItem     	P    	24   	(nil)          
@@ -338,11 +338,11 @@ LineItem      5           32
 >>> ASSOC C444 pNextCust C777
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bce4
 	customerId     	S    	0    	444            
 	name           	S    	8    	Emory Board    
 	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
+	pNextCust      	P    	32   	0x91bdd2       
 	balance        	D    	40   	44.440000      
 
 *
@@ -351,7 +351,7 @@ LineItem      5           32
 >>> ALLOC C888 Customer 888,Joe King,NULL,NULL,88.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91be02
 	customerId     	S    	0    	888            
 	name           	S    	8    	Joe King       
 	pFirstItem     	P    	24   	(nil)          
@@ -361,7 +361,7 @@ LineItem      5           32
 >>> ALLOC C911 Customer 911,Lee King,NULL,NULL,91.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91be37
 	customerId     	S    	0    	911            
 	name           	S    	8    	Lee King       
 	pFirstItem     	P    	24   	(nil)          
@@ -371,7 +371,7 @@ LineItem      5           32
 >>> ALLOC C922 Customer 922,Mae King,NULL,NULL,92.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91be6c
 	customerId     	S    	0    	922            
 	name           	S    	8    	Mae King       
 	pFirstItem     	P    	24   	(nil)          
@@ -381,7 +381,7 @@ LineItem      5           32
 >>> ALLOC MCW001 LineItem MCW001,1,12.45,NULL
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bea1
 	productId      	S    	0    	MCW001         
 	iQtyReq        	I    	12   	1              
 	dCost          	D    	16   	12.450000      
@@ -390,7 +390,7 @@ LineItem      5           32
 >>> ALLOC C933 Customer 933,Ray King,NULL,NULL,93.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bec6
 	customerId     	S    	0    	933            
 	name           	S    	8    	Ray King       
 	pFirstItem     	P    	24   	(nil)          
@@ -400,7 +400,7 @@ LineItem      5           32
 >>> ALLOC C944 Customer 944,Freida King,NULL,NULL,94.00
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91befb
 	customerId     	S    	0    	944            
 	name           	S    	8    	Freida King    
 	pFirstItem     	P    	24   	(nil)          
@@ -410,7 +410,7 @@ LineItem      5           32
 >>> ALLOC SSX001 LineItem SSX001,1,29.95,NULL
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bf30
 	productId      	S    	0    	SSX001         
 	iQtyReq        	I    	12   	1              
 	dCost          	D    	16   	29.950000      
@@ -419,16 +419,16 @@ LineItem      5           32
 >>> ASSOC MCW001 pNextItem SSX001
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bea1
 	productId      	S    	0    	MCW001         
 	iQtyReq        	I    	12   	1              
 	dCost          	D    	16   	12.450000      
-	pNextItem      	P    	24   	0x171bf35      
+	pNextItem      	P    	24   	0x91bf35       
 
 >>> ALLOC TTP001 LineItem TTP001,2,9.95,NULL
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bf55
 	productId      	S    	0    	TTP001         
 	iQtyReq        	I    	12   	2              
 	dCost          	D    	16   	9.950000       
@@ -437,114 +437,114 @@ LineItem      5           32
 >>> DEREF SSX001
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 InUse   53   0
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	0091BD98 InUse   53   0
+			   0091BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
+			   0091BDB1 thru 0091BDC4 (1 lines) suppressed - all zero
+			   0091BDC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 thru 0171BDF9 (1 lines) suppressed - all zero
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 thru 0091BDF9 (1 lines) suppressed - all zero
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 InUse   53   0
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	0091BE02 InUse   53   0
+			   0091BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
+			   0091BE1B thru 0091BE2E (1 lines) suppressed - all zero
+			   0091BE2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0171BE37 InUse   53   0
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	0091BE37 InUse   53   0
+			   0091BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
+			   0091BE50 thru 0091BE63 (1 lines) suppressed - all zero
+			   0091BE64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 InUse   37   1
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BEA1 InUse   37   1
+			   0091BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 InUse   53   0
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+			   0091BEBA f  .  (  @  5  .  .  .  .  .  .  .  
+			            66 E6 28 40 35 BF 91 00 00 00 00 00 
+	0091BEC6 InUse   53   0
+			   0091BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
+			   0091BEDF thru 0091BEF2 (1 lines) suppressed - all zero
+			   0091BEF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0171BEFB InUse   53   0
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	0091BEFB InUse   53   0
+			   0091BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
+			   0091BF14 thru 0091BF27 (1 lines) suppressed - all zero
+			   0091BF28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0171BF30 InUse   37   1
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BF30 InUse   37   1
+			   0091BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BF49 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A Free    42
+	0091BF7A Free    42
 			Next:00000000
 *
 * XXXXXX 1
@@ -555,7 +555,7 @@ LineItem      5           32
 >>> ALLOC NHC001 LineItem NHC001,1,9.95,NULL
 
 	MMALLOC - POST INIT
-	cGC:U    
+	cGC:U    	Addr: 0x91bf7a
 	productId      	S    	0    	NHC001         
 	iQtyReq        	I    	12   	1              
 	dCost          	D    	16   	9.950000       
@@ -563,7 +563,7 @@ LineItem      5           32
 
 >>> PRTALL
 	Alloc Address  Size Node Type Data Address  
- 	0x171befb        53      0    0171BF00
+ 	0x91befb        53      0    0091BF00
 			Attr Name      Type Value     
 			customerId       S  944
 			name             S  Freida King
@@ -571,14 +571,14 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  94.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bea1        37      1    0171BEA6
+ 	0x91bea1        37      1    0091BEA6
 			Attr Name      Type Value     
 			productId        S  MCW001
 			iQtyReq          I  1
 			dCost            D  12.450000
-			pNextItem        P  0171BF35
+			pNextItem        P  0091BF35
 	Alloc Address  Size Node Type Data Address  
- 	0x171be37        53      0    0171BE3C
+ 	0x91be37        53      0    0091BE3C
 			Attr Name      Type Value     
 			customerId       S  911
 			name             S  Lee King
@@ -586,7 +586,7 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  91.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171be02        53      0    0171BE07
+ 	0x91be02        53      0    0091BE07
 			Attr Name      Type Value     
 			customerId       S  888
 			name             S  Joe King
@@ -594,15 +594,15 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  88.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bcaf        53      0    0171BCB4
+ 	0x91bcaf        53      0    0091BCB4
 			Attr Name      Type Value     
 			customerId       S  333
 			name             S  Misty Wind
 			pFirstItem       P  00000000
-			pNextCust        P  0171BCE9
+			pNextCust        P  0091BCE9
 			balance          D  70.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171be6c        53      0    0171BE71
+ 	0x91be6c        53      0    0091BE71
 			Attr Name      Type Value     
 			customerId       S  922
 			name             S  Mae King
@@ -610,22 +610,22 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  92.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc55        53      0    0171BC5A
+ 	0x91bc55        53      0    0091BC5A
 			Attr Name      Type Value     
 			customerId       S  222
 			name             S  Barb Wire
 			pFirstItem       P  00000000
-			pNextCust        P  0171BCB4
+			pNextCust        P  0091BCB4
 			balance          D  200.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bd73        37      1    0171BD78
+ 	0x91bd73        37      1    0091BD78
 			Attr Name      Type Value     
 			productId        S  BOM001
 			iQtyReq          I  1
 			dCost            D  29.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bec6        53      0    0171BECB
+ 	0x91bec6        53      0    0091BECB
 			Attr Name      Type Value     
 			customerId       S  933
 			name             S  Ray King
@@ -633,59 +633,59 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  93.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc8a        37      1    0171BC8F
+ 	0x91bc8a        37      1    0091BC8F
 			Attr Name      Type Value     
 			productId        S  PPF001
 			iQtyReq          I  5
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bd19        53      0    0171BD1E
+ 	0x91bd19        53      0    0091BD1E
 			Attr Name      Type Value     
 			customerId       S  555
 			name             S  Holly Graph
-			pFirstItem       P  0171BD53
-			pNextCust        P  0171BC5A
+			pFirstItem       P  0091BD53
+			pNextCust        P  0091BC5A
 			balance          D  55.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bc20        53      0    0171BC25
+ 	0x91bc20        53      0    0091BC25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
-			pFirstItem       P  0171BC8F
-			pNextCust        P  0171BC5A
+			pFirstItem       P  0091BC8F
+			pNextCust        P  0091BC5A
 			balance          D  100.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bf7a        42      1    0171BF7F
+ 	0x91bf7a        42      1    0091BF7F
 			Attr Name      Type Value     
 			productId        S  NHC001
 			iQtyReq          I  1
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bf55        37      1    0171BF5A
+ 	0x91bf55        37      1    0091BF5A
 			Attr Name      Type Value     
 			productId        S  TTP001
 			iQtyReq          I  2
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bce4        53      0    0171BCE9
+ 	0x91bce4        53      0    0091BCE9
 			Attr Name      Type Value     
 			customerId       S  444
 			name             S  Emory Board
 			pFirstItem       P  00000000
-			pNextCust        P  0171BDD2
+			pNextCust        P  0091BDD2
 			balance          D  44.440000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bd4e        37      1    0171BD53
+ 	0x91bd4e        37      1    0091BD53
 			Attr Name      Type Value     
 			productId        S  SBB001
 			iQtyReq          I  2
 			dCost            D  19.950000
-			pNextItem        P  0171BD78
+			pNextItem        P  0091BD78
 	Alloc Address  Size Node Type Data Address  
- 	0x171bd98        53      0    0171BD9D
+ 	0x91bd98        53      0    0091BD9D
 			Attr Name      Type Value     
 			customerId       S  666
 			name             S  Bob L Head
@@ -693,7 +693,7 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  66.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x171bdcd        53      0    0171BDD2
+ 	0x91bdcd        53      0    0091BDD2
 			Attr Name      Type Value     
 			customerId       S  777
 			name             S  Flo N Water
@@ -709,566 +709,232 @@ LineItem      5           32
 *
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 InUse   53   0
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	0091BD98 InUse   53   0
+			   0091BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
+			   0091BDB1 thru 0091BDC4 (1 lines) suppressed - all zero
+			   0091BDC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 thru 0171BDF9 (1 lines) suppressed - all zero
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 thru 0091BDF9 (1 lines) suppressed - all zero
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 InUse   53   0
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	0091BE02 InUse   53   0
+			   0091BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
+			   0091BE1B thru 0091BE2E (1 lines) suppressed - all zero
+			   0091BE2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0171BE37 InUse   53   0
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	0091BE37 InUse   53   0
+			   0091BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
+			   0091BE50 thru 0091BE63 (1 lines) suppressed - all zero
+			   0091BE64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 InUse   37   1
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BEA1 InUse   37   1
+			   0091BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 InUse   53   0
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+			   0091BEBA f  .  (  @  5  .  .  .  .  .  .  .  
+			            66 E6 28 40 35 BF 91 00 00 00 00 00 
+	0091BEC6 InUse   53   0
+			   0091BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
+			   0091BEDF thru 0091BEF2 (1 lines) suppressed - all zero
+			   0091BEF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0171BEFB InUse   53   0
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	0091BEFB InUse   53   0
+			   0091BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
+			   0091BF14 thru 0091BF27 (1 lines) suppressed - all zero
+			   0091BF28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0171BF30 InUse   37   1
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BF30 InUse   37   1
+			   0091BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BF49 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A InUse   42   1
-			   0171BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF7A InUse   42   1
+			   0091BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   0091BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 >>> GCOLL
-Starting Mark Phase
-Ending Mark Phase
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	944            
-	name           	S    	8    	Freida King    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	94.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	MCW001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	12.450000      
-	pNextItem      	P    	24   	0x171bf35      
-
-	0x171bf35      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	SSX001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	911            
-	name           	S    	8    	Lee King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	91.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	888            
-	name           	S    	8    	Joe King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	88.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	333            
-	name           	S    	8    	Misty Wind     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
-	balance        	D    	40   	70.000000      
-
-	(nil)          
-Starting follow
-	0x171bce9      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	444            
-	name           	S    	8    	Emory Board    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
-	balance        	D    	40   	44.440000      
-
-	(nil)          
-Starting follow
-	0x171bdd2      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	77.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Ending follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	922            
-	name           	S    	8    	Mae King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	92.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-	(nil)          
-Starting follow
-	0x171bcb4      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	333            
-	name           	S    	8    	Misty Wind     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
-	balance        	D    	40   	70.000000      
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	933            
-	name           	S    	8    	Ray King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	93.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	555            
-	name           	S    	8    	Holly Graph    
-	pFirstItem     	P    	24   	0x171bd53      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	55.000000      
-
-	0x171bd53      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-	0x171bd78      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-Ending follow
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	111            
-	name           	S    	8    	Sal A Mander   
-	pFirstItem     	P    	24   	0x171bc8f      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	100.000000     
-
-	0x171bc8f      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	NHC001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	TTP001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	444            
-	name           	S    	8    	Emory Board    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
-	balance        	D    	40   	44.440000      
-
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	666            
-	name           	S    	8    	Bob L Head     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	66.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	77.000000      
-
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 InUse   53   0
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	0091BD98 InUse   53   0
+			   0091BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
+			   0091BDB1 thru 0091BDC4 (1 lines) suppressed - all zero
+			   0091BDC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 thru 0171BDF9 (1 lines) suppressed - all zero
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 thru 0091BDF9 (1 lines) suppressed - all zero
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 InUse   53   0
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	0091BE02 InUse   53   0
+			   0091BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
+			   0091BE1B thru 0091BE2E (1 lines) suppressed - all zero
+			   0091BE2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0171BE37 InUse   53   0
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	0091BE37 InUse   53   0
+			   0091BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
+			   0091BE50 thru 0091BE63 (1 lines) suppressed - all zero
+			   0091BE64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 InUse   37   1
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BEA1 InUse   37   1
+			   0091BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 InUse   53   0
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+			   0091BEBA f  .  (  @  5  .  .  .  .  .  .  .  
+			            66 E6 28 40 35 BF 91 00 00 00 00 00 
+	0091BEC6 InUse   53   0
+			   0091BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
+			   0091BEDF thru 0091BEF2 (1 lines) suppressed - all zero
+			   0091BEF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0171BEFB InUse   53   0
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	0091BEFB InUse   53   0
+			   0091BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
+			   0091BF14 thru 0091BF27 (1 lines) suppressed - all zero
+			   0091BF28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0171BF30 InUse   37   1
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BF30 InUse   37   1
+			   0091BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BF49 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A InUse   42   1
-			   0171BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF7A InUse   42   1
+			   0091BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   0091BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 * Remove our reference to the beginning of the linked list
@@ -1279,430 +945,115 @@ Starting follow
 * Do a Garbage Collection which will gain two free areas
 *
 >>> GCOLL
-Starting Mark Phase
-Ending Mark Phase
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	944            
-	name           	S    	8    	Freida King    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	94.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	911            
-	name           	S    	8    	Lee King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	91.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	888            
-	name           	S    	8    	Joe King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	88.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	333            
-	name           	S    	8    	Misty Wind     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
-	balance        	D    	40   	70.000000      
-
-	(nil)          
-Starting follow
-	0x171bce9      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	444            
-	name           	S    	8    	Emory Board    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
-	balance        	D    	40   	44.440000      
-
-	(nil)          
-Starting follow
-	0x171bdd2      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	77.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Ending follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	922            
-	name           	S    	8    	Mae King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	92.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-	(nil)          
-Starting follow
-	0x171bcb4      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	333            
-	name           	S    	8    	Misty Wind     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
-	balance        	D    	40   	70.000000      
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	933            
-	name           	S    	8    	Ray King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	93.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	555            
-	name           	S    	8    	Holly Graph    
-	pFirstItem     	P    	24   	0x171bd53      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	55.000000      
-
-	0x171bd53      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-	0x171bd78      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-Ending follow
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	111            
-	name           	S    	8    	Sal A Mander   
-	pFirstItem     	P    	24   	0x171bc8f      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	100.000000     
-
-	0x171bc8f      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	NHC001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	TTP001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	444            
-	name           	S    	8    	Emory Board    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
-	balance        	D    	40   	44.440000      
-
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	666            
-	name           	S    	8    	Bob L Head     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	66.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	77.000000      
-
+	Collecting 0091BEA1
+	Collecting 0091BF30
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 InUse   53   0
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	0091BD98 InUse   53   0
+			   0091BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
+			   0091BDB1 thru 0091BDC4 (1 lines) suppressed - all zero
+			   0091BDC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 thru 0171BDF9 (1 lines) suppressed - all zero
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 thru 0091BDF9 (1 lines) suppressed - all zero
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 InUse   53   0
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	0091BE02 InUse   53   0
+			   0091BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
+			   0091BE1B thru 0091BE2E (1 lines) suppressed - all zero
+			   0091BE2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0171BE37 InUse   53   0
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	0091BE37 InUse   53   0
+			   0091BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
+			   0091BE50 thru 0091BE63 (1 lines) suppressed - all zero
+			   0091BE64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 Cand    37
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
-			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 InUse   53   0
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	0091BEA1 Free    37
+			Next:00000000
+	0091BEC6 InUse   53   0
+			   0091BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
+			   0091BEDF thru 0091BEF2 (1 lines) suppressed - all zero
+			   0091BEF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0171BEFB InUse   53   0
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	0091BEFB InUse   53   0
+			   0091BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
+			   0091BF14 thru 0091BF27 (1 lines) suppressed - all zero
+			   0091BF28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0171BF30 Cand    37
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
-			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
-			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF30 Free    37
+			Next:0091BEA1
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A InUse   42   1
-			   0171BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF7A InUse   42   1
+			   0091BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   0091BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 * Remove some Hash Table references ... but some of these
@@ -1718,365 +1069,104 @@ Starting follow
 * Do a Garbage Collection which should find C666 to collect
 *
 >>> GCOLL
-Starting Mark Phase
-Ending Mark Phase
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	944            
-	name           	S    	8    	Freida King    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	94.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	922            
-	name           	S    	8    	Mae King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	92.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-	(nil)          
-Starting follow
-	0x171bcb4      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	333            
-	name           	S    	8    	Misty Wind     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
-	balance        	D    	40   	70.000000      
-
-	(nil)          
-Starting follow
-	0x171bce9      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	444            
-	name           	S    	8    	Emory Board    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
-	balance        	D    	40   	44.440000      
-
-	(nil)          
-Starting follow
-	0x171bdd2      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	77.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Ending follow
-Ending follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	933            
-	name           	S    	8    	Ray King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	93.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	555            
-	name           	S    	8    	Holly Graph    
-	pFirstItem     	P    	24   	0x171bd53      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	55.000000      
-
-	0x171bd53      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-	0x171bd78      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-Ending follow
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	111            
-	name           	S    	8    	Sal A Mander   
-	pFirstItem     	P    	24   	0x171bc8f      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	100.000000     
-
-	0x171bc8f      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	NHC001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	TTP001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	77.000000      
-
+	Collecting 0091BD98
+	Collecting 0091BE02
+	Combining 0091BE02 with 0091BE37
+	Collecting 0091BEA1
+	Collecting 0091BF30
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 Cand    53
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
-			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
-			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BD98 Free    53
+			Next:00000000
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 thru 0171BDF9 (1 lines) suppressed - all zero
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 thru 0091BDF9 (1 lines) suppressed - all zero
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 Cand    53
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
-			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 00 56 40 
-	0171BE37 Cand    53
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
-			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE02 Free   106
+			Next:0091BD98
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 Cand    37
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
-			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 InUse   53   0
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	0091BEA1 Free    37
+			Next:0091BE02
+	0091BEC6 InUse   53   0
+			   0091BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
+			   0091BEDF thru 0091BEF2 (1 lines) suppressed - all zero
+			   0091BEF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0171BEFB InUse   53   0
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	0091BEFB InUse   53   0
+			   0091BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
+			   0091BF14 thru 0091BF27 (1 lines) suppressed - all zero
+			   0091BF28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0171BF30 Cand    37
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
-			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
-			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF30 Free    37
+			Next:0091BEA1
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A InUse   42   1
-			   0171BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF7A InUse   42   1
+			   0091BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   0091BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 * Create a circular list, should not cause problems for GCOLL
@@ -2084,11 +1174,11 @@ Starting follow
 >>> ASSOC C777 pNextCust C222
 
 	ASSOC - POST UPDATE
-	cGC:U    
+	cGC:U    	Addr: 0x91bdcd
 	customerId     	S    	0    	777            
 	name           	S    	8    	Flo N Water    
 	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bc5a      
+	pNextCust      	P    	32   	0x91bc5a       
 	balance        	D    	40   	77.000000      
 
 >>> DEREF C777
@@ -2098,485 +1188,255 @@ Starting follow
 * but should verify that student's code doesn't infinite loop
 *
 >>> GCOLL
-Starting Mark Phase
-Ending Mark Phase
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	944            
-	name           	S    	8    	Freida King    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	94.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	922            
-	name           	S    	8    	Mae King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	92.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	933            
-	name           	S    	8    	Ray King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	93.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	555            
-	name           	S    	8    	Holly Graph    
-	pFirstItem     	P    	24   	0x171bd53      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	55.000000      
-
-	0x171bd53      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-	0x171bd78      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-Ending follow
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-	(nil)          
-Starting follow
-	0x171bcb4      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	333            
-	name           	S    	8    	Misty Wind     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
-	balance        	D    	40   	70.000000      
-
-	(nil)          
-Starting follow
-	0x171bce9      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	444            
-	name           	S    	8    	Emory Board    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
-	balance        	D    	40   	44.440000      
-
-	(nil)          
-Starting follow
-	0x171bdd2      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	77.000000      
-
-	(nil)          
-Starting follow
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Ending follow
-Ending follow
-Ending follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	111            
-	name           	S    	8    	Sal A Mander   
-	pFirstItem     	P    	24   	0x171bc8f      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	100.000000     
-
-	0x171bc8f      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	NHC001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	TTP001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
+	Collecting 0091BD98
+	Collecting 0091BE02
+	Collecting 0091BEA1
+	Collecting 0091BF30
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 Cand    53
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
-			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
-			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BD98 Free    53
+			Next:00000000
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 Cand    53
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
-			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 00 56 40 
-	0171BE37 Cand    53
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
-			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE02 Free   106
+			Next:0091BD98
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 Cand    37
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
-			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 InUse   53   0
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	0091BEA1 Free    37
+			Next:0091BE02
+	0091BEC6 InUse   53   0
+			   0091BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
+			   0091BEDF thru 0091BEF2 (1 lines) suppressed - all zero
+			   0091BEF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0171BEFB InUse   53   0
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	0091BEFB InUse   53   0
+			   0091BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
+			   0091BF14 thru 0091BF27 (1 lines) suppressed - all zero
+			   0091BF28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0171BF30 Cand    37
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
-			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
-			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF30 Free    37
+			Next:0091BEA1
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A InUse   42   1
-			   0171BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF7A InUse   42   1
+			   0091BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   0091BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 >>> ALLOC C955 Customer 955,Harry King,NULL,NULL,95.00
-	!!! Memory not allocated
-		smAllocate rc=901, Not enough memory to store user data
+
+	MMALLOC - POST INIT
+	cGC:U    	Addr: 0x91be02
+	customerId     	S    	0    	955            
+	name           	S    	8    	Harry King     
+	pFirstItem     	P    	24   	(nil)          
+	pNextCust      	P    	32   	(nil)          
+	balance        	D    	40   	95.000000      
+
 >>> ALLOC SSX002 LineItem SSX002,1,29.25,NULL
-	!!! Memory not allocated
-		smAllocate rc=901, Not enough memory to store user data
+
+	MMALLOC - POST INIT
+	cGC:U    	Addr: 0x91bf30
+	productId      	S    	0    	SSX002         
+	iQtyReq        	I    	12   	1              
+	dCost          	D    	16   	29.250000      
+	pNextItem      	P    	24   	(nil)          
+
 >>> ALLOC SSX003 LineItem SSX003,1,29.35,NULL
-	!!! Memory not allocated
-		smAllocate rc=901, Not enough memory to store user data
+
+	MMALLOC - POST INIT
+	cGC:U    	Addr: 0x91bea1
+	productId      	S    	0    	SSX003         
+	iQtyReq        	I    	12   	1              
+	dCost          	D    	16   	29.350000      
+	pNextItem      	P    	24   	(nil)          
+
 >>> ALLOC SSX004 LineItem SSX004,1,29.45,NULL
-	!!! Memory not allocated
-		smAllocate rc=901, Not enough memory to store user data
+
+	MMALLOC - POST INIT
+	cGC:U    	Addr: 0x91bd98
+	productId      	S    	0    	SSX004         
+	iQtyReq        	I    	12   	1              
+	dCost          	D    	16   	29.450000      
+	pNextItem      	P    	24   	(nil)          
+
 *
 * XXXXXX 5
 >>> DUMP
 	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 Cand    53
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
-			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
-			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BD98 InUse   53   1
+			   0091BD9D S  S  X  0  0  4  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			            53 53 58 30 30 34 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
+			   0091BDB1 3  s  =  @  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            33 73 3D 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+			   0091BDC5 thru 0091BDCC (1 lines) suppressed - all zero
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 Cand    53
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
-			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 00 56 40 
-	0171BE37 Cand    53
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
-			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE02 InUse   53   0
+			   0091BE07 9  5  5  .  .  .  .  .  H  a  r  r  y     K  i  n  g  .  .  
+			            39 35 35 00 00 00 00 00 48 61 72 72 79 20 4B 69 6E 67 00 00 
+			   0091BE1B thru 0091BE2E (1 lines) suppressed - all zero
+			   0091BE2F .  .  .  .  .  .  W  @  
+			            00 00 00 00 00 C0 57 40 
+	0091BE37 Free    53
+			Next:0091BD98
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 Cand    37
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
-			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 InUse   53   0
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	0091BEA1 InUse   37   1
+			   0091BEA6 S  S  X  0  0  3  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            53 53 58 30 30 33 00 00 00 00 00 00 01 00 00 00 9A 99 99 99 
+			   0091BEBA .  Y  =  @  .  .  .  .  .  .  .  .  
+			            99 59 3D 40 00 00 00 00 00 00 00 00 
+	0091BEC6 InUse   53   0
+			   0091BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
+			   0091BEDF thru 0091BEF2 (1 lines) suppressed - all zero
+			   0091BEF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0171BEFB InUse   53   0
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	0091BEFB InUse   53   0
+			   0091BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
+			   0091BF14 thru 0091BF27 (1 lines) suppressed - all zero
+			   0091BF28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0171BF30 Cand    37
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
-			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
-			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF30 InUse   37   1
+			   0091BF35 S  S  X  0  0  2  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            53 53 58 30 30 32 00 00 00 00 00 00 01 00 00 00 00 00 00 00 
+			   0091BF49 .  @  =  @  .  .  .  .  .  .  .  .  
+			            00 40 3D 40 00 00 00 00 00 00 00 00 
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A InUse   42   1
-			   0171BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF7A InUse   42   1
+			   0091BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   0091BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 >>> DEREF C933
@@ -2588,324 +1448,104 @@ Starting follow
 * 64-bit: Collection should have two existing and gather three adj
 *
 >>> GCOLL
-Starting Mark Phase
-Ending Mark Phase
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	922            
-	name           	S    	8    	Mae King       
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	(nil)          
-	balance        	D    	40   	92.000000      
-
-	(nil)          
-Starting follow
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	555            
-	name           	S    	8    	Holly Graph    
-	pFirstItem     	P    	24   	0x171bd53      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	55.000000      
-
-	0x171bd53      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
-	0x171bd78      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	BOM001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	29.950000      
-	pNextItem      	P    	24   	(nil)          
-
-Ending follow
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-	(nil)          
-Starting follow
-	0x171bcb4      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	333            
-	name           	S    	8    	Misty Wind     
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bce9      
-	balance        	D    	40   	70.000000      
-
-	(nil)          
-Starting follow
-	0x171bce9      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	444            
-	name           	S    	8    	Emory Board    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bdd2      
-	balance        	D    	40   	44.440000      
-
-	(nil)          
-Starting follow
-	0x171bdd2      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	777            
-	name           	S    	8    	Flo N Water    
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	77.000000      
-
-	(nil)          
-Starting follow
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Ending follow
-Ending follow
-Ending follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	customerId     	S    	0    	111            
-	name           	S    	8    	Sal A Mander   
-	pFirstItem     	P    	24   	0x171bc8f      
-	pNextCust      	P    	32   	0x171bc5a      
-	balance        	D    	40   	100.000000     
-
-	0x171bc8f      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	PPF001         
-	iQtyReq        	I    	12   	5              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	0x171bc5a      
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	customerId     	S    	0    	222            
-	name           	S    	8    	Barb Wire      
-	pFirstItem     	P    	24   	(nil)          
-	pNextCust      	P    	32   	0x171bcb4      
-	balance        	D    	40   	200.000000     
-
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	NHC001         
-	iQtyReq        	I    	12   	1              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:C    
-	productId      	S    	0    	TTP001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	9.950000       
-	pNextItem      	P    	24   	(nil)          
-
-	(nil)          
-Starting follow
-Ending follow
-Starting follow
-
-	FOLLOW NODE INFO
-	cGC:U    
-	productId      	S    	0    	SBB001         
-	iQtyReq        	I    	12   	2              
-	dCost          	D    	16   	19.950000      
-	pNextItem      	P    	24   	0x171bd78      
-
+	Collecting 0091BE37
+	Collecting 0091BEA1
+	Combining 0091BEA1 with 0091BEC6
+	Combining 0091BEA1 with 0091BEFB
 >>> DUMP	Address  Mem   Size NodeType
-	0171BC20 InUse   53   0
-			   0171BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	0091BC20 InUse   53   0
+			   0091BC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0171BC39 .  .  .  .  .  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 8F BC 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BC4D .  .  .  .  .  .  Y  @  
+			   0091BC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F BC 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BC4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0171BC55 InUse   53   0
-			   0171BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	0091BC55 InUse   53   0
+			   0091BC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0171BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 71 01 00 00 00 00 
-			   0171BC82 .  .  .  .  .  .  i  @  
+			   0091BC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 BC 91 00 00 00 00 00 
+			   0091BC82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0171BC8A InUse   37   1
-			   0171BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BC8A InUse   37   1
+			   0091BC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0171BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BCA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BCAF InUse   53   0
-			   0171BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	0091BCAF InUse   53   0
+			   0091BCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0171BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 71 01 00 00 00 00 
-			   0171BCDC .  .  .  .  .  .  Q  @  
+			   0091BCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 BC 91 00 00 00 00 00 
+			   0091BCDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0171BCE4 InUse   53   0
-			   0171BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	0091BCE4 InUse   53   0
+			   0091BCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0171BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 71 01 00 00 00 00 
-			   0171BD11 .  .  .  .  Q  8  F  @  
+			   0091BCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 BD 91 00 00 00 00 00 
+			   0091BD11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0171BD19 InUse   53   0
-			   0171BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	0091BD19 InUse   53   0
+			   0091BD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0171BD32 .  .  .  .  S  .  q  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 53 BD 71 01 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BD46 .  .  .  .  .  .  K  @  
+			   0091BD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 BD 91 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BD46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0171BD4E InUse   37   1
-			   0171BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	0091BD4E InUse   37   1
+			   0091BD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0171BD67 3  .  3  @  x  .  q  .  .  .  .  .  
-			            33 F3 33 40 78 BD 71 01 00 00 00 00 
-	0171BD73 InUse   37   1
-			   0171BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   0091BD67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 BD 91 00 00 00 00 00 
+	0091BD73 InUse   37   1
+			   0091BD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   0091BD8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BD98 Cand    53
-			   0171BD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
-			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0171BDB1 thru 0171BDC4 (1 lines) suppressed - all zero
-			   0171BDC5 .  .  .  .  .  .  P  @  
-			            00 00 00 00 00 80 50 40 
-	0171BDCD InUse   53   0
-			   0171BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	0091BD98 InUse   53   1
+			   0091BD9D S  S  X  0  0  4  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			            53 53 58 30 30 34 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
+			   0091BDB1 3  s  =  @  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            33 73 3D 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+			   0091BDC5 thru 0091BDCC (1 lines) suppressed - all zero
+	0091BDCD InUse   53   0
+			   0091BDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0171BDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  q  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 5A BC 71 01 00 00 00 00 
-			   0171BDFA .  .  .  .  .  @  S  @  
+			   0091BDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 5A BC 91 00 00 00 00 00 
+			   0091BDFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0171BE02 Cand    53
-			   0171BE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
-			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE1B thru 0171BE2E (1 lines) suppressed - all zero
-			   0171BE2F .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 00 56 40 
-	0171BE37 Cand    53
-			   0171BE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
-			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE50 thru 0171BE63 (1 lines) suppressed - all zero
-			   0171BE64 .  .  .  .  .  .  V  @  
-			            00 00 00 00 00 C0 56 40 
-	0171BE6C InUse   53   0
-			   0171BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	0091BE02 InUse   53   0
+			   0091BE07 9  5  5  .  .  .  .  .  H  a  r  r  y     K  i  n  g  .  .  
+			            39 35 35 00 00 00 00 00 48 61 72 72 79 20 4B 69 6E 67 00 00 
+			   0091BE1B thru 0091BE2E (1 lines) suppressed - all zero
+			   0091BE2F .  .  .  .  .  .  W  @  
+			            00 00 00 00 00 C0 57 40 
+	0091BE37 Free    53
+			Next:00000000
+	0091BE6C InUse   53   0
+			   0091BE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0171BE85 thru 0171BE98 (1 lines) suppressed - all zero
-			   0171BE99 .  .  .  .  .  .  W  @  
+			   0091BE85 thru 0091BE98 (1 lines) suppressed - all zero
+			   0091BE99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0171BEA1 Cand    37
-			   0171BEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
-			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BEBA f  .  (  @  5  .  q  .  .  .  .  .  
-			            66 E6 28 40 35 BF 71 01 00 00 00 00 
-	0171BEC6 Cand    53
-			   0171BECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
-			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0171BEDF thru 0171BEF2 (1 lines) suppressed - all zero
-			   0171BEF3 .  .  .  .  .  @  W  @  
-			            00 00 00 00 00 40 57 40 
-	0171BEFB Cand    53
-			   0171BF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
-			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0171BF14 thru 0171BF27 (1 lines) suppressed - all zero
-			   0171BF28 .  .  .  .  .  .  W  @  
-			            00 00 00 00 00 80 57 40 
-	0171BF30 Cand    37
-			   0171BF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
-			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0171BF49 3  .  =  @  .  .  .  .  .  .  .  .  
-			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0171BF55 InUse   37   1
-			   0171BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BEA1 Free   143
+			Next:0091BE37
+	0091BF30 InUse   37   1
+			   0091BF35 S  S  X  0  0  2  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            53 53 58 30 30 32 00 00 00 00 00 00 01 00 00 00 00 00 00 00 
+			   0091BF49 .  @  =  @  .  .  .  .  .  .  .  .  
+			            00 40 3D 40 00 00 00 00 00 00 00 00 
+	0091BF55 InUse   37   1
+			   0091BF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0171BF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   0091BF6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0171BF7A InUse   42   1
-			   0171BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	0091BF7A InUse   42   1
+			   0091BF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0171BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   0091BF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 
 

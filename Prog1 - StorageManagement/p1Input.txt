@@ -8,7 +8,7 @@ PRTALL
 *
 ASSOC C111 pNextCust C222
 * customer 111's  pNextCust should point to 222
-PRTNODE C111
+PRTNODE C111 
 *
 * associate customer 111 to PPF001
 *
@@ -35,7 +35,7 @@ ASSOC C555 pNextCust C222
 ALLOC SBB001 LineItem SBB001,2,19.95,NULL
 ASSOC C555 pFirstItem SBB001
 *
-* assoc the line items
+* assoc the line items 
 *
 ALLOC BOM001 LineItem BOM001,1,29.95,NULL
 ASSOC SBB001 pNextItem BOM001
@@ -43,7 +43,7 @@ ASSOC SBB001 pNextItem BOM001
 ALLOC C666 Customer 666,Bob L Head,NULL,NULL,66.00
 ASSOC C444 pNextCust C666
 *
-* Assoc C444 with a different customer,
+* Assoc C444 with a different customer, 
 * causing the old customer assoc (C666) to not be associated
 *
 ALLOC C777 Customer 777,Flo N Water,NULL,NULL,77.00
@@ -75,7 +75,7 @@ PRTALL
 * Do a Garbage Collection ... should not collect anything
 * Note that SSX001 is still referenced by a linked list
 * so it shouldn't be freed.
-*
+* 
 DUMP
 GCOLL
 DUMP
@@ -100,7 +100,7 @@ DEREF C444
 DEREF C666
 *
 * XXXXXX 4
-* Do a Garbage Collection which should find C666 to collect
+* Do a Garbage Collection which should find C666 to collect 
 *
 GCOLL
 DUMP
