@@ -1,31 +1,39 @@
-#include "cs3723p1.h"
+/**********************************************************************
+cs3737p1.c by Kyle Widmann
+Purpose:
+    This file provides storage management functions to implement garbage collection
+    capabilities and to memory management functions for the Storage Manager
+**********************************************************************/
+
+
 #include <string.h>
 #include <stdio.h>
 
+/**********************************************************************
+cs3723p1.h
+Purpose:
+Provides type definitions for structures used by the associated storage manager
+**********************************************************************/
+#include "cs3723p1.h"
+
+/*******************************Function Declarations********************************/
 FreeNode *getFreeNodeFromHeap(StorageManager *pMgr,short shTotalSize);
-InUseNode * initializeInUseNode(StorageManager *pMgr, FreeNode *pFreeNode, short shTotalSize, short shNodeType, char sbData[]);
-void addToFreeList(StorageManager *pMgr, FreeNode *pFreeNode, short shNodeSize);
+InUseNode * initInUseNode(StorageManager *pMgr, FreeNode *pFreeNode, short shTotalSize, short shNodeType, char sbData[]);
+void shrinkFreeNode(StorageManager *pMgr, FreeNode *pFreeNode, short shNewNodeSize);
 void setNodeData(StorageManager *pMgr, InUseNode *pInUseNode, short shNodeType, char sbData[]);
 void printNodeMeta(const char *szTitle, StorageManager *pMgr, InUseNode *pNode);
+void collectCandidateNode(StorageManager *pMgr, InUseNode *pCandidateNode);
 
-/******************** Name of Function **********************************
-function prototype
+/******************** mmInit **********************************
+void mmInit(StorageManager *pMgr)
 Purpose:
-    Explain what the function does including a brief overview of what it
-    returns.
+    Initializes all of the heap memory allocated by the Storage Manager
 Parameters:
-    List each parameter on a separate line including data type name and
-    description.  Each item should begin with whether the parameter is passed
-    in, out or both:
-    I   Passed in.  Value isn’t modified by subroutine.
-    O   Passed out. Value is returned through this parameter.
-    I/O Modified. Original value is used, but this subroutine modifies it.
+    I/O     StorageManager *pMgr    Provides metadata about the user data and
+                                    information for storage management.
 Notes:
-    Include any special assumptions.  If global variables are referenced,
-    reference them.  Explain critical parts of the algorithm.
-Return value:
-    List the values returned by the function.  Do not list returned
-    parameters.  Remove if void.
+    Sets all heap memory to null and sets the free head pointer to the
+    beginning of the heap as one large free node
 **************************************************************************/
 void mmInit(StorageManager *pMgr){
     pMgr->pFreeHead = (FreeNode *) pMgr->pBeginStorage;
@@ -35,24 +43,26 @@ void mmInit(StorageManager *pMgr){
     pMgr->pFreeHead->pFreeNext = NULL;
 }
 
-/******************** Name of Function **********************************
-function prototype
+/******************** mmAllocate **********************************
+void * mmAllocate(StorageManager *pMgr, short shDataSize, short shNodeType,
+    char sbData[], MMResult *pmmResult)
 Purpose:
-    Explain what the function does including a brief overview of what it
-    returns.
+    Satisfies a memory allocation request using the first free node from
+    the heap that is large enough
 Parameters:
-    List each parameter on a separate line including data type name and
-    description.  Each item should begin with whether the parameter is passed
-    in, out or both:
-    I   Passed in.  Value isn’t modified by subroutine.
-    O   Passed out. Value is returned through this parameter.
-    I/O Modified. Original value is used, but this subroutine modifies it.
+    I       StorageManager *pMgr    Provides metadata about the user data and
+                                    information for storage management.
+    I       short shDataSize        Size of bits required for users data
+    I       short shNodeType        Corresponds to the index in the Storage
+                                    Managers array of node types and their metadata
+    I       char sbData[]           Binary data that needs to be copied into the
+                                    new in use node
+    O       MMResult *pmmResult     Result structure for returning errors
 Notes:
-    Include any special assumptions.  If global variables are referenced,
-    reference them.  Explain critical parts of the algorithm.
+    NODE_OVERHEAD_SIZE -Overhead space for node type, size and cGc flag.  It
+                        is defined in the header file.
 Return value:
-    List the values returned by the function.  Do not list returned
-    parameters.  Remove if void.
+    char *pUserData pointer to the beginning of users's data in the node
 **************************************************************************/
 void * mmAllocate(StorageManager *pMgr, short shDataSize, short shNodeType, char sbData[]
         , MMResult *pmmResult){
@@ -66,41 +76,31 @@ void * mmAllocate(StorageManager *pMgr, short shDataSize, short shNodeType, char
         return NULL;
     }
 
-    InUseNode *pInUseNode = initializeInUseNode(pMgr, pFreeNode, shTotalSize, shNodeType, sbData);
-
-    printNodeMeta("MMALLOC - POST INIT", pMgr, pInUseNode);
+    InUseNode *pInUseNode = initInUseNode(pMgr, pFreeNode, shTotalSize, shNodeType, sbData);
 
     char *pUserData = ((char *)pInUseNode) + NODE_OVERHEAD_SZ;
 
     return pUserData;
 
 }
-/******************** Name of Function **********************************
-function prototype
+/******************** mmMark **********************************
+void mmMark(StorageManager *pMgr, MMResult *pmmResult)
 Purpose:
-    Explain what the function does including a brief overview of what it
-    returns.
+    Loops over the entire heap and marks all nodes as a candidate for
+    the garbage collector
 Parameters:
-    List each parameter on a separate line including data type name and
-    description.  Each item should begin with whether the parameter is passed
-    in, out or both:
-    I   Passed in.  Value isn’t modified by subroutine.
-    O   Passed out. Value is returned through this parameter.
-    I/O Modified. Original value is used, but this subroutine modifies it.
+    I/O     StorageManager *pMgr    Provides metadata about the user data and
+                                    information for storage management.
+    O       MMResult *pmmResult     Result structure for returning errors
 Notes:
-    Include any special assumptions.  If global variables are referenced,
-    reference them.  Explain critical parts of the algorithm.
-Return value:
-    List the values returned by the function.  Do not list returned
-    parameters.  Remove if void.
+    Since the overhead structure for a free node and in use node are the same
+    it just assumes each node is in use
 **************************************************************************/
 void mmMark(StorageManager *pMgr, MMResult *pmmResult){
 
     char *pNode;
     short shNodeSize;
     InUseNode *pInUseNode;
-
-    printf("Starting Mark Phase\n");
 
     for (pNode = pMgr->pBeginStorage; pNode < pMgr->pEndStorage; pNode += shNodeSize)
     {
@@ -110,7 +110,6 @@ void mmMark(StorageManager *pMgr, MMResult *pmmResult){
         pInUseNode->cGC = 'C';
     }
 
-    printf("Ending Mark Phase\n");
 }
 
 /******************** Name of Function **********************************
@@ -119,22 +118,16 @@ Purpose:
     Explain what the function does including a brief overview of what it
     returns.
 Parameters:
-    List each parameter on a separate line including data type name and
-    description.  Each item should begin with whether the parameter is passed
-    in, out or both:
-    I   Passed in.  Value isn’t modified by subroutine.
-    O   Passed out. Value is returned through this parameter.
-    I/O Modified. Original value is used, but this subroutine modifies it.
+    I/O     StorageManager *pMgr    Provides metadata about the user data and
+                                    information for storage management.
+    I       void *pUserData         Pointer to the beginning of user data
+                                    to follow
+    O       MMResult *pmmResult     Result structure for returning errors
 Notes:
-    Include any special assumptions.  If global variables are referenced,
-    reference them.  Explain critical parts of the algorithm.
-Return value:
-    List the values returned by the function.  Do not list returned
-    parameters.  Remove if void.
+    NODE_OVERHEAD_SIZE -Overhead space for node type, size and cGc flag.  It
+                        is defined in the header file.
 **************************************************************************/
 void mmFollow(StorageManager *pMgr, void *pUserData, MMResult *pmmResult){
-
-    printf("Starting follow\n");
 
     if(pUserData == NULL){
         return;
@@ -144,83 +137,129 @@ void mmFollow(StorageManager *pMgr, void *pUserData, MMResult *pmmResult){
     InUseNode *pInUseNode = (InUseNode *) pNode;
     MetaAttr *pAttr = NULL;
 
-    printNodeMeta("FOLLOW NODE INFO", pMgr, pInUseNode);
-
     if(pInUseNode->cGC == 'U'){
         return;
     }
 
+    //set our flag to in use to avoid infinite loop
     pInUseNode->cGC = 'U';
 
-    short shNodeType = findNodeType(pMgr, pMgr->nodeTypeM[pInUseNode->shNodeType].szNodeTypeNm);
+    short shNodeType = pInUseNode->shNodeType;
 
     for (int iCurrAttr = pMgr->nodeTypeM[shNodeType].shBeginMetaAttr;
          pMgr->metaAttrM[iCurrAttr].shNodeType == shNodeType;
          iCurrAttr++)
     {
-
         pAttr = &pMgr->metaAttrM[iCurrAttr];
 
         if(pAttr->cDataType == 'P'){
             void *pMetaAttrPointerToUserData = *((void **)&(pInUseNode->sbData[pAttr->shOffset]));
-            printf("\t%-15p\n", pMetaAttrPointerToUserData);
             mmFollow(pMgr, pMetaAttrPointerToUserData, pmmResult);
         }
     }
 
-    printf("Ending follow\n");
-
 }
 
-/******************** Name of Function **********************************
-function prototype
+/******************** mmCollect **********************************
+void mmCollect(StorageManager *pMgr, MMResult *pmmResult)
 Purpose:
-    Explain what the function does including a brief overview of what it
-    returns.
+    Loops over each node in the heap and turns all candidate nodes found
+    into free nodes and adds them to the free list
 Parameters:
-    List each parameter on a separate line including data type name and
-    description.  Each item should begin with whether the parameter is passed
-    in, out or both:
-    I   Passed in.  Value isn’t modified by subroutine.
-    O   Passed out. Value is returned through this parameter.
-    I/O Modified. Original value is used, but this subroutine modifies it.
+    I/O     StorageManager *pMgr    Provides metadata about the user data and
+                                    information for storage management.
+    O       MMResult *pmmResult     Result structure for returning error
 Notes:
-    Include any special assumptions.  If global variables are referenced,
-    reference them.  Explain critical parts of the algorithm.
-Return value:
-    List the values returned by the function.  Do not list returned
-    parameters.  Remove if void.
 **************************************************************************/
 void mmCollect(StorageManager *pMgr, MMResult *pmmResult){
 
+    char *pNode;
+    short shNodeSize;
+    InUseNode *pCandidateNode;
+
+    //ignore old free list
+    pMgr->pFreeHead = NULL;
+
+    //find all candidate nodes and collect
+    for (pNode = pMgr->pBeginStorage; pNode < pMgr->pEndStorage; pNode += shNodeSize)
+    {
+        pCandidateNode = (InUseNode *)pNode;
+        shNodeSize = pCandidateNode->shNodeSize;
+
+        if(pCandidateNode->cGC == 'C'){
+            collectCandidateNode(pMgr, pCandidateNode);
+        }
+    }
 }
 
 /******************** Name of Function **********************************
-function prototype
+void collectCandidateNode(StorageManager *pMgr, InUseNode *pCandidateNode)
 Purpose:
-    Explain what the function does including a brief overview of what it
-    returns.
+    Takes the candidate node and turns it into a free node, then adds it to the free list
 Parameters:
-    List each parameter on a separate line including data type name and
-    description.  Each item should begin with whether the parameter is passed
-    in, out or both:
-    I   Passed in.  Value isn’t modified by subroutine.
-    O   Passed out. Value is returned through this parameter.
-    I/O Modified. Original value is used, but this subroutine modifies it.
+    I/O     StorageManager *pMgr        Provides metadata about the user data and
+                                        information for storage management.
+    I/O     InUseNode *pCandidateNode   Node to be freed and added to free list
+    O       MMResult *pmmResult         Result structure for returning error
 Notes:
-    Include any special assumptions.  If global variables are referenced,
-    reference them.  Explain critical parts of the algorithm.
-Return value:
-    List the values returned by the function.  Do not list returned
-    parameters.  Remove if void.
+    If the previous free node is adjacent to the candidate node they
+    are combined
+**************************************************************************/
+void collectCandidateNode(StorageManager *pMgr, InUseNode *pCandidateNode){
+
+    FreeNode *pNewFreeNode;
+    char *pPreviousNodeEnd = NULL;
+    short shNodeSize = pCandidateNode->shNodeSize;
+
+    if(pMgr->pFreeHead != NULL){
+        pPreviousNodeEnd = ((char *)pMgr->pFreeHead) + pMgr->pFreeHead->shNodeSize;
+    }
+
+    memset(pCandidateNode, '\0', shNodeSize);
+
+    //if previous node is adjacent to candidate node
+    if(pPreviousNodeEnd != NULL && pPreviousNodeEnd == (char *)pCandidateNode){
+        printf("\tCombining %08lX with %08lX\n", ULAddr(pMgr->pFreeHead), ULAddr(pCandidateNode));
+        pMgr->pFreeHead->shNodeSize += shNodeSize;
+    }
+    //if previous node is not adjacent to candidate node
+    else
+    {
+        printf("\tCollecting %08lX\n", ULAddr(pCandidateNode));
+        pNewFreeNode = (FreeNode *)pCandidateNode;
+        pNewFreeNode->pFreeNext = pMgr->pFreeHead;
+        pNewFreeNode->cGC = 'F';
+        pNewFreeNode->shNodeSize = shNodeSize;
+        pMgr->pFreeHead = pNewFreeNode;
+    }
+}
+
+/******************** mmAssoc **********************************
+void mmAssoc(StorageManager *pMgr, void *pUserDataFrom, char szAttrName[]
+        , void *pUserDataTo, MMResult *pmmResult)
+Purpose:
+    Set an in use node attribute of type pointer to reference another in use node
+Parameters:
+    I/O     StorageManager *pMgr        Provides metadata about the user data and
+                                        information for storage management.
+    I/O     void *pUserDataFrom         User data whose pointer we are updating
+    I       char szAttrName[]           User data attribute we are updating
+    I       void *pUserDataTo           User data we the updated pointer should reference
+    O       MMResult *pmmResult         Result structure for returning error
+Notes:
+    NODE_OVERHEAD_SIZE -Overhead space for node type, size and cGc flag.  It
+                        is defined in the header file.
 **************************************************************************/
 void mmAssoc(StorageManager *pMgr, void *pUserDataFrom, char szAttrName[]
         , void *pUserDataTo, MMResult *pmmResult){
 
-    MetaAttr *pAttr = NULL;
-    InUseNode *pInUseFrom = (InUseNode *)((char *)pUserDataFrom - NODE_OVERHEAD_SZ);
+    char sbzErrorMessage[60];           //Buffer to store error messages
+    MetaAttr *pAttr = NULL;             //Pointer to simplify reference meta attribute
+    InUseNode *pInUseFrom;              //Pointer to reference node we are altering
+    short shNodeType;                   //Node type index to simplify reference when looping
 
-    short shNodeType = findNodeType(pMgr, pMgr->nodeTypeM[pInUseFrom->shNodeType].szNodeTypeNm);
+    pInUseFrom = (InUseNode *)((char *)pUserDataFrom - NODE_OVERHEAD_SZ);
+    shNodeType = pInUseFrom->shNodeType;
 
     for (int iCurrAttr = pMgr->nodeTypeM[shNodeType].shBeginMetaAttr;
          pMgr->metaAttrM[iCurrAttr].shNodeType == shNodeType;
@@ -228,52 +267,45 @@ void mmAssoc(StorageManager *pMgr, void *pUserDataFrom, char szAttrName[]
     {
         if(strcmp(pMgr->metaAttrM[iCurrAttr].szAttrName, szAttrName) == 0){
             pAttr = &pMgr->metaAttrM[iCurrAttr];
+            break;
         }
     }
 
-    if(pAttr->cDataType != 'P'){
-        pmmResult->rc = RC_ASSOC_ATTR_NOT_PTR;
-
-        char sbErrorMessage[60];
-        sprintf(sbErrorMessage, "Attribute %s was not a pointer.", szAttrName);
-        strcpy(pmmResult->szErrorMessage, sbErrorMessage);
-        return;
-    }
-
+    //If attr not found set error and return
     if(pAttr == NULL){
         pmmResult->rc = RC_ASSOC_ATTR_NOT_FOUND;
-
-        char sbErrorMessage[60];
-        sprintf(sbErrorMessage, "Attribute %s was not found.", szAttrName);
-        strcpy(pmmResult->szErrorMessage, sbErrorMessage);
+        sprintf(sbzErrorMessage, "Attribute %s was not found.", szAttrName);
+        strcpy(pmmResult->szErrorMessage, sbzErrorMessage);
         return;
     }
 
+    //If attr is not a pointer set error and return
+    if(pAttr->cDataType != 'P'){
+        pmmResult->rc = RC_ASSOC_ATTR_NOT_PTR;
+        sprintf(sbzErrorMessage, "Attribute %s was not a pointer.", szAttrName);
+        strcpy(pmmResult->szErrorMessage, sbzErrorMessage);
+        return;
+    }
 
+    //update the pointer to new node
     void **ppNode = (void **)&(pInUseFrom->sbData[pAttr->shOffset]);
     *ppNode = pUserDataTo;
 
-    printNodeMeta("ASSOC - POST UPDATE", pMgr, pInUseFrom);
 }
 
-/******************** Name of Function **********************************
-function prototype
+/******************** getFreeNodeFromHeap **********************************
+FreeNode * getFreeNodeFromHeap(StorageManager *pMgr, short shTotalSize)
 Purpose:
-    Explain what the function does including a brief overview of what it
-    returns.
+    Gets a free node from the heap whose size is at least as large as the size
+    provided as a parameter
 Parameters:
-    List each parameter on a separate line including data type name and
-    description.  Each item should begin with whether the parameter is passed
-    in, out or both:
-    I   Passed in.  Value isn’t modified by subroutine.
-    O   Passed out. Value is returned through this parameter.
-    I/O Modified. Original value is used, but this subroutine modifies it.
+    I/O     StorageManager *pMgr        Provides metadata about the user data and
+                                        information for storage management.
+    I       short shTotalSize           The total size of the node request, including overhead
 Notes:
-    Include any special assumptions.  If global variables are referenced,
-    reference them.  Explain critical parts of the algorithm.
 Return value:
-    List the values returned by the function.  Do not list returned
-    parameters.  Remove if void.
+    pFree   Pointer to the first free node whose size is >= shTotalSize
+    NULL    If no free node with the minimum size was found
 **************************************************************************/
 FreeNode * getFreeNodeFromHeap(StorageManager *pMgr, short shTotalSize){
 
@@ -284,9 +316,10 @@ FreeNode * getFreeNodeFromHeap(StorageManager *pMgr, short shTotalSize){
         if(pFree->shNodeSize >= shTotalSize){
             if(pPreviousFree != NULL){
                 pPreviousFree->pFreeNext = pFree->pFreeNext;
-            }else if(pPreviousFree == NULL && pFree->pFreeNext == NULL){
-                pMgr->pFreeHead = NULL;
+            }else{
+                pMgr->pFreeHead = pFree->pFreeNext;
             }
+
             return pFree;
         }
         pPreviousFree = pFree;
@@ -296,11 +329,12 @@ FreeNode * getFreeNodeFromHeap(StorageManager *pMgr, short shTotalSize){
     return NULL;
 }
 
-/******************** Name of Function **********************************
-function prototype
+/******************** initInUseNode **********************************
+InUseNode * initInUseNode(StorageManager *pMgr, FreeNode *pFreeNode,
+                          short shTotalSize, short shNodeType, char *sbData)
 Purpose:
-    Explain what the function does including a brief overview of what it
-    returns.
+    Initializes an in use node from a free node and sets the nodes data
+    and attributes
 Parameters:
     List each parameter on a separate line including data type name and
     description.  Each item should begin with whether the parameter is passed
@@ -315,8 +349,8 @@ Return value:
     List the values returned by the function.  Do not list returned
     parameters.  Remove if void.
 **************************************************************************/
-InUseNode * initializeInUseNode(StorageManager *pMgr, FreeNode *pFreeNode,
-                                short shTotalSize, short shNodeType, char sbData[]){
+InUseNode * initInUseNode(StorageManager *pMgr, FreeNode *pFreeNode,
+                          short shTotalSize, short shNodeType, char *sbData){
 
     short shMinNodeSize = sizeof(FreeNode);
     short shSizeOfNodeRemaining = pFreeNode->shNodeSize - shTotalSize;
@@ -325,8 +359,8 @@ InUseNode * initializeInUseNode(StorageManager *pMgr, FreeNode *pFreeNode,
         //allocate whole node
         shTotalSize = pFreeNode->shNodeSize;
     }else{
-        char *pNewFreeNode = ((char *)pFreeNode) + shTotalSize;
-        addToFreeList(pMgr, (FreeNode *) pNewFreeNode, shSizeOfNodeRemaining);
+        //adjust free node size in linked list
+        shrinkFreeNode(pMgr, pFreeNode, shSizeOfNodeRemaining);
     }
 
     InUseNode *pInUseNode = (InUseNode *) pFreeNode;
@@ -357,17 +391,35 @@ Return value:
     List the values returned by the function.  Do not list returned
     parameters.  Remove if void.
 **************************************************************************/
-void addToFreeList(StorageManager *pMgr, FreeNode *pNewFreeNode, short shNodeSize){
+void shrinkFreeNode(StorageManager *pMgr, FreeNode *pFreeNode, short shNewNodeSize){
 
-    if(pNewFreeNode == NULL){
+    if(pFreeNode == NULL){
         return;
     }
 
-    pNewFreeNode->pFreeNext = pMgr->pFreeHead;
-    pMgr->pFreeHead = pNewFreeNode;
+    FreeNode *pPreviousFreeNode = NULL, *pCurrFreeNode;
+    short shBitsToAdvance = pFreeNode->shNodeSize - shNewNodeSize;
+    FreeNode *pNewFreeNode = (FreeNode *)(((char *)pFreeNode) + shBitsToAdvance);
 
-    pMgr->pFreeHead->cGC = 'F';
-    pMgr->pFreeHead->shNodeSize = shNodeSize;
+    for(pCurrFreeNode = pMgr->pFreeHead; pCurrFreeNode != NULL; pCurrFreeNode = pCurrFreeNode->pFreeNext){
+        if(pCurrFreeNode == pFreeNode){
+            break;
+        }
+        pPreviousFreeNode = pCurrFreeNode;
+    }
+
+    pNewFreeNode->pFreeNext = pFreeNode->pFreeNext;
+    pNewFreeNode->shNodeSize = shNewNodeSize;
+    pNewFreeNode->cGC = 'F';
+
+    if(pPreviousFreeNode != NULL){
+        pPreviousFreeNode->pFreeNext = pNewFreeNode;
+    }else{
+        pMgr->pFreeHead = pNewFreeNode;
+    }
+
+
+
 }
 
 /******************** Name of Function **********************************
@@ -448,9 +500,8 @@ void printNodeMeta(const char *szTitle, StorageManager *pMgr, InUseNode *pNode){
 
     short shNodeType = findNodeType(pMgr, pMgr->nodeTypeM[pNode->shNodeType].szNodeTypeNm);
 
-    /***PRINT OUT NODE DATA **********/
     printf("\n\t%s\n", szTitle);
-    printf("\tcGC:%-5c\n", pNode->cGC);
+    printf("\tcGC:%-5c\tAddr: %p\n", pNode->cGC, pNode);
     for (int iCurrAttr = pMgr->nodeTypeM[shNodeType].shBeginMetaAttr; pMgr->metaAttrM[iCurrAttr].shNodeType == shNodeType; iCurrAttr++)
     {
         printf("\t%-15s\t%-5c\t%-5d", pMgr->metaAttrM[iCurrAttr].szAttrName, pMgr->metaAttrM[iCurrAttr].cDataType, pMgr->metaAttrM[iCurrAttr].shOffset);
@@ -473,5 +524,4 @@ void printNodeMeta(const char *szTitle, StorageManager *pMgr, InUseNode *pNode){
         }
     }
     printf("\n");
-    /*********END PRINT*******************/
 }
