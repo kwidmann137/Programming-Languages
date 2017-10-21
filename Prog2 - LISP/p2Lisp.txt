@@ -1,0 +1,86 @@
+#!/usr/bin/clisp
+(defun repeat(atm N)
+    (cond
+        ( (> N 0) (cons atm (repeat atm (- N 1))) )
+    )
+)
+
+(print (repeat 'Y '5))
+
+(defun duplicate(lis)
+    (COND
+        ( (NULL lis) NIL )
+        ( (ATOM (CAR lis)) ( cons (CAR lis) ( cons  (CAR lis) (duplicate (CDR lis)) ) ) )
+        ( T (cons (CAR lis) (duplicate (CDR lis))) )
+    )
+)
+
+(print (duplicate '(X Y Z)))
+(print (duplicate ' (GUM (HAS BEEN) CHEWED)))
+
+(defun duplicateN(lis N)
+    (COND
+        ((NULL lis) NIL)
+        ((AND (ATOM lis) (ZEROP N)) NIL)
+        ((AND (ATOM lis) (> N 0)) (cons lis (duplicateN  lis (- N 1))))
+        ((AND (ATOM (CAR lis)) (> N 1)) (append (duplicateN (CAR lis) N) (duplicateN (CDR lis) N)))
+        (T (cons (CAR lis) (duplicateN (CDR lis) N)))
+    )
+)
+
+;;(trace duplicateN)
+(print (duplicateN  '(A B C) 3))
+(print (duplicateN ' (GUM (HAS BEEN) CHEWED) 4) )
+
+(defun duplicateDeep(lis)
+    (COND
+        ( (NULL lis) NIL )
+        ( (ATOM (CAR lis)) ( cons (CAR lis) ( cons  (CAR lis) (duplicateDeep (CDR lis)) ) ) )
+        ( T (cons (duplicateDeep (CAR lis)) (duplicateDeep (CDR lis))) )
+    )
+)
+
+(print (duplicateDeep  ' (A B C) ))
+(print (duplicateDeep  ' (A (B D) E (F)) ) )
+(print (duplicateDeep '(A (B (D E) (F G)) (H I)) ) )
+
+(defun printWOP(lis)
+    (terpri)
+    (COND
+        ( (ATOM lis) (PRINC lis))
+        ( T (printList lis) )
+    )
+    (terpri)
+    T
+)
+
+(defun printList(lis)
+    (COND
+        ( (NULL (CDR lis)) (PRINT (CAR lis) ) )
+    )
+
+    (COND
+        (  )
+    )
+)
+
+(defun evalEach(lis)
+    ; (print lis)
+    ; (print (CAR lis))
+    ; (EVAL (CAR lis))
+    (COND
+        ( ( NOT (NULL (CDR lis))) (EVAL (CAR lis)) )
+    )
+
+    (COND
+        ( (NULL (CDR lis)) (EVAL (CAR lis)) )
+        ( T (evalEach (CDR lis)) )
+    )
+)
+
+;(trace evalEach)
+
+(print (evalEach '( (setf A 5) (print 'hello) (print 'there) A)))
+(print (evalEach '( (setf x 10 ) (setf A '(x y z)) (print A) (setf B (car A)) (set B (+ 5 x)) )))
+(print B)
+(print X)
