@@ -16,7 +16,7 @@ LineItem      5           32
 >>> ALLOC C111 Customer 111,Sal A Mander,NULL,NULL,100.00
 >>> PRTNODE C111
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc20        53      0    0193CC25
+ 	0x1ea8c20        53      0    01EA8C25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
@@ -27,14 +27,14 @@ LineItem      5           32
 >>> ALLOC PPF001 LineItem PPF001,5,9.95,NULL
 >>> PRTALL
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc8a        37      1    0193CC8F
+ 	0x1ea8c8a        37      1    01EA8C8F
 			Attr Name      Type Value     
 			productId        S  PPF001
 			iQtyReq          I  5
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc55        53      0    0193CC5A
+ 	0x1ea8c55        53      0    01EA8C5A
 			Attr Name      Type Value     
 			customerId       S  222
 			name             S  Barb Wire
@@ -42,7 +42,7 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  200.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc20        53      0    0193CC25
+ 	0x1ea8c20        53      0    01EA8C25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
@@ -57,12 +57,12 @@ LineItem      5           32
 * customer 111's  pNextCust should point to 222
 >>> PRTNODE C111 
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc20        53      0    0193CC25
+ 	0x1ea8c20        53      0    01EA8C25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
 			pFirstItem       P  00000000
-			pNextCust        P  0193CC5A
+			pNextCust        P  01EA8C5A
 			balance          D  100.000000
 *
 * associate customer 111 to PPF001
@@ -70,12 +70,12 @@ LineItem      5           32
 >>> ASSOC C111 pFirstItem PPF001
 >>> PRTNODE C111
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc20        53      0    0193CC25
+ 	0x1ea8c20        53      0    01EA8C25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
-			pFirstItem       P  0193CC8F
-			pNextCust        P  0193CC5A
+			pFirstItem       P  01EA8C8F
+			pNextCust        P  01EA8C5A
 			balance          D  100.000000
 * associate customer 222 to 333
 >>> ALLOC C333 Customer 333,Misty Wind,NULL,NULL,70.00
@@ -86,7 +86,7 @@ LineItem      5           32
 *
 >>> PRTALL
 	Alloc Address  Size Node Type Data Address  
- 	0x193ccaf        53      0    0193CCB4
+ 	0x1ea8caf        53      0    01EA8CB4
 			Attr Name      Type Value     
 			customerId       S  333
 			name             S  Misty Wind
@@ -94,27 +94,27 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  70.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc8a        37      1    0193CC8F
+ 	0x1ea8c8a        37      1    01EA8C8F
 			Attr Name      Type Value     
 			productId        S  PPF001
 			iQtyReq          I  5
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc55        53      0    0193CC5A
+ 	0x1ea8c55        53      0    01EA8C5A
 			Attr Name      Type Value     
 			customerId       S  222
 			name             S  Barb Wire
 			pFirstItem       P  00000000
-			pNextCust        P  0193CCB4
+			pNextCust        P  01EA8CB4
 			balance          D  200.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc20        53      0    0193CC25
+ 	0x1ea8c20        53      0    01EA8C25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
-			pFirstItem       P  0193CC8F
-			pNextCust        P  0193CC5A
+			pFirstItem       P  01EA8C8F
+			pNextCust        P  01EA8C5A
 			balance          D  100.000000
 
 * add another customer
@@ -122,39 +122,39 @@ LineItem      5           32
 >>> ASSOC C333 pNextCust C444
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD thru 0193CD10 (1 lines) suppressed - all zero
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD thru 01EA8D10 (1 lines) suppressed - all zero
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 Free   651
+	01EA8D19 Free   651
 			Next:00000000
 *
 * Allocate another node and associate it with 222
@@ -193,114 +193,114 @@ LineItem      5           32
 >>> DEREF SSX001
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 InUse   53   0
-			   0193CD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	01EA8D98 InUse   53   0
+			   01EA8D9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0193CDB1 thru 0193CDC4 (1 lines) suppressed - all zero
-			   0193CDC5 .  .  .  .  .  .  P  @  
+			   01EA8DB1 thru 01EA8DC4 (1 lines) suppressed - all zero
+			   01EA8DC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 thru 0193CDF9 (1 lines) suppressed - all zero
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 thru 01EA8DF9 (1 lines) suppressed - all zero
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 InUse   53   0
-			   0193CE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	01EA8E02 InUse   53   0
+			   01EA8E07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE1B thru 0193CE2E (1 lines) suppressed - all zero
-			   0193CE2F .  .  .  .  .  .  V  @  
+			   01EA8E1B thru 01EA8E2E (1 lines) suppressed - all zero
+			   01EA8E2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0193CE37 InUse   53   0
-			   0193CE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	01EA8E37 InUse   53   0
+			   01EA8E3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE50 thru 0193CE63 (1 lines) suppressed - all zero
-			   0193CE64 .  .  .  .  .  .  V  @  
+			   01EA8E50 thru 01EA8E63 (1 lines) suppressed - all zero
+			   01EA8E64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 InUse   37   1
-			   0193CEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8EA1 InUse   37   1
+			   01EA8EA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CEBA f  .  (  @  5  .  .  .  .  .  .  .  
-			            66 E6 28 40 35 CF 93 01 00 00 00 00 
-	0193CEC6 InUse   53   0
-			   0193CECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+			   01EA8EBA f  .  (  @  5  .  .  .  .  .  .  .  
+			            66 E6 28 40 35 8F EA 01 00 00 00 00 
+	01EA8EC6 InUse   53   0
+			   01EA8ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0193CEDF thru 0193CEF2 (1 lines) suppressed - all zero
-			   0193CEF3 .  .  .  .  .  @  W  @  
+			   01EA8EDF thru 01EA8EF2 (1 lines) suppressed - all zero
+			   01EA8EF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0193CEFB InUse   53   0
-			   0193CF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	01EA8EFB InUse   53   0
+			   01EA8F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0193CF14 thru 0193CF27 (1 lines) suppressed - all zero
-			   0193CF28 .  .  .  .  .  .  W  @  
+			   01EA8F14 thru 01EA8F27 (1 lines) suppressed - all zero
+			   01EA8F28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0193CF30 InUse   37   1
-			   0193CF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8F30 InUse   37   1
+			   01EA8F35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CF49 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8F49 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A Free    42
+	01EA8F7A Free    42
 			Next:00000000
 *
 * XXXXXX 1
@@ -311,7 +311,7 @@ LineItem      5           32
 >>> ALLOC NHC001 LineItem NHC001,1,9.95,NULL
 >>> PRTALL
 	Alloc Address  Size Node Type Data Address  
- 	0x193cefb        53      0    0193CF00
+ 	0x1ea8efb        53      0    01EA8F00
 			Attr Name      Type Value     
 			customerId       S  944
 			name             S  Freida King
@@ -319,14 +319,14 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  94.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cea1        37      1    0193CEA6
+ 	0x1ea8ea1        37      1    01EA8EA6
 			Attr Name      Type Value     
 			productId        S  MCW001
 			iQtyReq          I  1
 			dCost            D  12.450000
-			pNextItem        P  0193CF35
+			pNextItem        P  01EA8F35
 	Alloc Address  Size Node Type Data Address  
- 	0x193ce37        53      0    0193CE3C
+ 	0x1ea8e37        53      0    01EA8E3C
 			Attr Name      Type Value     
 			customerId       S  911
 			name             S  Lee King
@@ -334,7 +334,7 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  91.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193ce02        53      0    0193CE07
+ 	0x1ea8e02        53      0    01EA8E07
 			Attr Name      Type Value     
 			customerId       S  888
 			name             S  Joe King
@@ -342,15 +342,15 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  88.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193ccaf        53      0    0193CCB4
+ 	0x1ea8caf        53      0    01EA8CB4
 			Attr Name      Type Value     
 			customerId       S  333
 			name             S  Misty Wind
 			pFirstItem       P  00000000
-			pNextCust        P  0193CCE9
+			pNextCust        P  01EA8CE9
 			balance          D  70.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193ce6c        53      0    0193CE71
+ 	0x1ea8e6c        53      0    01EA8E71
 			Attr Name      Type Value     
 			customerId       S  922
 			name             S  Mae King
@@ -358,22 +358,22 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  92.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc55        53      0    0193CC5A
+ 	0x1ea8c55        53      0    01EA8C5A
 			Attr Name      Type Value     
 			customerId       S  222
 			name             S  Barb Wire
 			pFirstItem       P  00000000
-			pNextCust        P  0193CCB4
+			pNextCust        P  01EA8CB4
 			balance          D  200.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cd73        37      1    0193CD78
+ 	0x1ea8d73        37      1    01EA8D78
 			Attr Name      Type Value     
 			productId        S  BOM001
 			iQtyReq          I  1
 			dCost            D  29.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cec6        53      0    0193CECB
+ 	0x1ea8ec6        53      0    01EA8ECB
 			Attr Name      Type Value     
 			customerId       S  933
 			name             S  Ray King
@@ -381,59 +381,59 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  93.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc8a        37      1    0193CC8F
+ 	0x1ea8c8a        37      1    01EA8C8F
 			Attr Name      Type Value     
 			productId        S  PPF001
 			iQtyReq          I  5
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cd19        53      0    0193CD1E
+ 	0x1ea8d19        53      0    01EA8D1E
 			Attr Name      Type Value     
 			customerId       S  555
 			name             S  Holly Graph
-			pFirstItem       P  0193CD53
-			pNextCust        P  0193CC5A
+			pFirstItem       P  01EA8D53
+			pNextCust        P  01EA8C5A
 			balance          D  55.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cc20        53      0    0193CC25
+ 	0x1ea8c20        53      0    01EA8C25
 			Attr Name      Type Value     
 			customerId       S  111
 			name             S  Sal A Mander
-			pFirstItem       P  0193CC8F
-			pNextCust        P  0193CC5A
+			pFirstItem       P  01EA8C8F
+			pNextCust        P  01EA8C5A
 			balance          D  100.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cf7a        42      1    0193CF7F
+ 	0x1ea8f7a        42      1    01EA8F7F
 			Attr Name      Type Value     
 			productId        S  NHC001
 			iQtyReq          I  1
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cf55        37      1    0193CF5A
+ 	0x1ea8f55        37      1    01EA8F5A
 			Attr Name      Type Value     
 			productId        S  TTP001
 			iQtyReq          I  2
 			dCost            D  9.950000
 			pNextItem        P  00000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cce4        53      0    0193CCE9
+ 	0x1ea8ce4        53      0    01EA8CE9
 			Attr Name      Type Value     
 			customerId       S  444
 			name             S  Emory Board
 			pFirstItem       P  00000000
-			pNextCust        P  0193CDD2
+			pNextCust        P  01EA8DD2
 			balance          D  44.440000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cd4e        37      1    0193CD53
+ 	0x1ea8d4e        37      1    01EA8D53
 			Attr Name      Type Value     
 			productId        S  SBB001
 			iQtyReq          I  2
 			dCost            D  19.950000
-			pNextItem        P  0193CD78
+			pNextItem        P  01EA8D78
 	Alloc Address  Size Node Type Data Address  
- 	0x193cd98        53      0    0193CD9D
+ 	0x1ea8d98        53      0    01EA8D9D
 			Attr Name      Type Value     
 			customerId       S  666
 			name             S  Bob L Head
@@ -441,7 +441,7 @@ LineItem      5           32
 			pNextCust        P  00000000
 			balance          D  66.000000
 	Alloc Address  Size Node Type Data Address  
- 	0x193cdcd        53      0    0193CDD2
+ 	0x1ea8dcd        53      0    01EA8DD2
 			Attr Name      Type Value     
 			customerId       S  777
 			name             S  Flo N Water
@@ -457,232 +457,232 @@ LineItem      5           32
 * 
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 InUse   53   0
-			   0193CD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	01EA8D98 InUse   53   0
+			   01EA8D9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0193CDB1 thru 0193CDC4 (1 lines) suppressed - all zero
-			   0193CDC5 .  .  .  .  .  .  P  @  
+			   01EA8DB1 thru 01EA8DC4 (1 lines) suppressed - all zero
+			   01EA8DC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 thru 0193CDF9 (1 lines) suppressed - all zero
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 thru 01EA8DF9 (1 lines) suppressed - all zero
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 InUse   53   0
-			   0193CE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	01EA8E02 InUse   53   0
+			   01EA8E07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE1B thru 0193CE2E (1 lines) suppressed - all zero
-			   0193CE2F .  .  .  .  .  .  V  @  
+			   01EA8E1B thru 01EA8E2E (1 lines) suppressed - all zero
+			   01EA8E2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0193CE37 InUse   53   0
-			   0193CE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	01EA8E37 InUse   53   0
+			   01EA8E3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE50 thru 0193CE63 (1 lines) suppressed - all zero
-			   0193CE64 .  .  .  .  .  .  V  @  
+			   01EA8E50 thru 01EA8E63 (1 lines) suppressed - all zero
+			   01EA8E64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 InUse   37   1
-			   0193CEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8EA1 InUse   37   1
+			   01EA8EA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CEBA f  .  (  @  5  .  .  .  .  .  .  .  
-			            66 E6 28 40 35 CF 93 01 00 00 00 00 
-	0193CEC6 InUse   53   0
-			   0193CECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+			   01EA8EBA f  .  (  @  5  .  .  .  .  .  .  .  
+			            66 E6 28 40 35 8F EA 01 00 00 00 00 
+	01EA8EC6 InUse   53   0
+			   01EA8ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0193CEDF thru 0193CEF2 (1 lines) suppressed - all zero
-			   0193CEF3 .  .  .  .  .  @  W  @  
+			   01EA8EDF thru 01EA8EF2 (1 lines) suppressed - all zero
+			   01EA8EF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0193CEFB InUse   53   0
-			   0193CF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	01EA8EFB InUse   53   0
+			   01EA8F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0193CF14 thru 0193CF27 (1 lines) suppressed - all zero
-			   0193CF28 .  .  .  .  .  .  W  @  
+			   01EA8F14 thru 01EA8F27 (1 lines) suppressed - all zero
+			   01EA8F28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0193CF30 InUse   37   1
-			   0193CF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8F30 InUse   37   1
+			   01EA8F35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CF49 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8F49 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A InUse   42   1
-			   0193CF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F7A InUse   42   1
+			   01EA8F7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8F93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 >>> GCOLL
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 InUse   53   0
-			   0193CD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	01EA8D98 InUse   53   0
+			   01EA8D9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0193CDB1 thru 0193CDC4 (1 lines) suppressed - all zero
-			   0193CDC5 .  .  .  .  .  .  P  @  
+			   01EA8DB1 thru 01EA8DC4 (1 lines) suppressed - all zero
+			   01EA8DC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 thru 0193CDF9 (1 lines) suppressed - all zero
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 thru 01EA8DF9 (1 lines) suppressed - all zero
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 InUse   53   0
-			   0193CE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	01EA8E02 InUse   53   0
+			   01EA8E07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE1B thru 0193CE2E (1 lines) suppressed - all zero
-			   0193CE2F .  .  .  .  .  .  V  @  
+			   01EA8E1B thru 01EA8E2E (1 lines) suppressed - all zero
+			   01EA8E2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0193CE37 InUse   53   0
-			   0193CE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	01EA8E37 InUse   53   0
+			   01EA8E3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE50 thru 0193CE63 (1 lines) suppressed - all zero
-			   0193CE64 .  .  .  .  .  .  V  @  
+			   01EA8E50 thru 01EA8E63 (1 lines) suppressed - all zero
+			   01EA8E64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 InUse   37   1
-			   0193CEA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8EA1 InUse   37   1
+			   01EA8EA6 M  C  W  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4D 43 57 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CEBA f  .  (  @  5  .  .  .  .  .  .  .  
-			            66 E6 28 40 35 CF 93 01 00 00 00 00 
-	0193CEC6 InUse   53   0
-			   0193CECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+			   01EA8EBA f  .  (  @  5  .  .  .  .  .  .  .  
+			            66 E6 28 40 35 8F EA 01 00 00 00 00 
+	01EA8EC6 InUse   53   0
+			   01EA8ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0193CEDF thru 0193CEF2 (1 lines) suppressed - all zero
-			   0193CEF3 .  .  .  .  .  @  W  @  
+			   01EA8EDF thru 01EA8EF2 (1 lines) suppressed - all zero
+			   01EA8EF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0193CEFB InUse   53   0
-			   0193CF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	01EA8EFB InUse   53   0
+			   01EA8F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0193CF14 thru 0193CF27 (1 lines) suppressed - all zero
-			   0193CF28 .  .  .  .  .  .  W  @  
+			   01EA8F14 thru 01EA8F27 (1 lines) suppressed - all zero
+			   01EA8F28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0193CF30 InUse   37   1
-			   0193CF35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8F30 InUse   37   1
+			   01EA8F35 S  S  X  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CF49 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8F49 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A InUse   42   1
-			   0193CF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F7A InUse   42   1
+			   01EA8F7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8F93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 * Remove our reference to the beginning of the linked list
@@ -693,115 +693,115 @@ LineItem      5           32
 * Do a Garbage Collection which will gain two free areas
 *
 >>> GCOLL
-	Collecting 0193CEA1
-	Collecting 0193CF30
+	Collecting 01EA8EA1
+	Collecting 01EA8F30
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 InUse   53   0
-			   0193CD9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
+	01EA8D98 InUse   53   0
+			   01EA8D9D 6  6  6  .  .  .  .  .  B  o  b     L     H  e  a  d  .  .  
 			            36 36 36 00 00 00 00 00 42 6F 62 20 4C 20 48 65 61 64 00 00 
-			   0193CDB1 thru 0193CDC4 (1 lines) suppressed - all zero
-			   0193CDC5 .  .  .  .  .  .  P  @  
+			   01EA8DB1 thru 01EA8DC4 (1 lines) suppressed - all zero
+			   01EA8DC5 .  .  .  .  .  .  P  @  
 			            00 00 00 00 00 80 50 40 
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 thru 0193CDF9 (1 lines) suppressed - all zero
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 thru 01EA8DF9 (1 lines) suppressed - all zero
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 InUse   53   0
-			   0193CE07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
+	01EA8E02 InUse   53   0
+			   01EA8E07 8  8  8  .  .  .  .  .  J  o  e     K  i  n  g  .  .  .  .  
 			            38 38 38 00 00 00 00 00 4A 6F 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE1B thru 0193CE2E (1 lines) suppressed - all zero
-			   0193CE2F .  .  .  .  .  .  V  @  
+			   01EA8E1B thru 01EA8E2E (1 lines) suppressed - all zero
+			   01EA8E2F .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 00 56 40 
-	0193CE37 InUse   53   0
-			   0193CE3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
+	01EA8E37 InUse   53   0
+			   01EA8E3C 9  1  1  .  .  .  .  .  L  e  e     K  i  n  g  .  .  .  .  
 			            39 31 31 00 00 00 00 00 4C 65 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE50 thru 0193CE63 (1 lines) suppressed - all zero
-			   0193CE64 .  .  .  .  .  .  V  @  
+			   01EA8E50 thru 01EA8E63 (1 lines) suppressed - all zero
+			   01EA8E64 .  .  .  .  .  .  V  @  
 			            00 00 00 00 00 C0 56 40 
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 Free    37
+	01EA8EA1 Free    37
 			Next:00000000
-	0193CEC6 InUse   53   0
-			   0193CECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	01EA8EC6 InUse   53   0
+			   01EA8ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0193CEDF thru 0193CEF2 (1 lines) suppressed - all zero
-			   0193CEF3 .  .  .  .  .  @  W  @  
+			   01EA8EDF thru 01EA8EF2 (1 lines) suppressed - all zero
+			   01EA8EF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0193CEFB InUse   53   0
-			   0193CF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	01EA8EFB InUse   53   0
+			   01EA8F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0193CF14 thru 0193CF27 (1 lines) suppressed - all zero
-			   0193CF28 .  .  .  .  .  .  W  @  
+			   01EA8F14 thru 01EA8F27 (1 lines) suppressed - all zero
+			   01EA8F28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0193CF30 Free    37
-			Next:0193CEA1
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F30 Free    37
+			Next:01EA8EA1
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A InUse   42   1
-			   0193CF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F7A InUse   42   1
+			   01EA8F7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8F93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 * Remove some Hash Table references ... but some of these
@@ -817,104 +817,104 @@ LineItem      5           32
 * Do a Garbage Collection which should find C666 to collect 
 *
 >>> GCOLL
-	Collecting 0193CD98
-	Collecting 0193CE02
-	Combining 0193CE02 with 0193CE37
-	Collecting 0193CEA1
-	Collecting 0193CF30
+	Collecting 01EA8D98
+	Collecting 01EA8E02
+	Combining 01EA8E02 with 01EA8E37
+	Collecting 01EA8EA1
+	Collecting 01EA8F30
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 Free    53
+	01EA8D98 Free    53
 			Next:00000000
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 thru 0193CDF9 (1 lines) suppressed - all zero
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 thru 01EA8DF9 (1 lines) suppressed - all zero
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 Free   106
-			Next:0193CD98
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E02 Free   106
+			Next:01EA8D98
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 Free    37
-			Next:0193CE02
-	0193CEC6 InUse   53   0
-			   0193CECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	01EA8EA1 Free    37
+			Next:01EA8E02
+	01EA8EC6 InUse   53   0
+			   01EA8ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0193CEDF thru 0193CEF2 (1 lines) suppressed - all zero
-			   0193CEF3 .  .  .  .  .  @  W  @  
+			   01EA8EDF thru 01EA8EF2 (1 lines) suppressed - all zero
+			   01EA8EF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0193CEFB InUse   53   0
-			   0193CF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	01EA8EFB InUse   53   0
+			   01EA8F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0193CF14 thru 0193CF27 (1 lines) suppressed - all zero
-			   0193CF28 .  .  .  .  .  .  W  @  
+			   01EA8F14 thru 01EA8F27 (1 lines) suppressed - all zero
+			   01EA8F28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0193CF30 Free    37
-			Next:0193CEA1
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F30 Free    37
+			Next:01EA8EA1
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A InUse   42   1
-			   0193CF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F7A InUse   42   1
+			   01EA8F7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8F93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 * Create a circular list, should not cause problems for GCOLL
@@ -927,104 +927,104 @@ LineItem      5           32
 * but should verify that student's code doesn't infinite loop
 *
 >>> GCOLL
-	Collecting 0193CD98
-	Collecting 0193CE02
-	Collecting 0193CEA1
-	Collecting 0193CF30
+	Collecting 01EA8D98
+	Collecting 01EA8E02
+	Collecting 01EA8EA1
+	Collecting 01EA8F30
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 Free    53
+	01EA8D98 Free    53
 			Next:00000000
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 Free   106
-			Next:0193CD98
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E02 Free   106
+			Next:01EA8D98
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 Free    37
-			Next:0193CE02
-	0193CEC6 InUse   53   0
-			   0193CECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	01EA8EA1 Free    37
+			Next:01EA8E02
+	01EA8EC6 InUse   53   0
+			   01EA8ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0193CEDF thru 0193CEF2 (1 lines) suppressed - all zero
-			   0193CEF3 .  .  .  .  .  @  W  @  
+			   01EA8EDF thru 01EA8EF2 (1 lines) suppressed - all zero
+			   01EA8EF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0193CEFB InUse   53   0
-			   0193CF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	01EA8EFB InUse   53   0
+			   01EA8F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0193CF14 thru 0193CF27 (1 lines) suppressed - all zero
-			   0193CF28 .  .  .  .  .  .  W  @  
+			   01EA8F14 thru 01EA8F27 (1 lines) suppressed - all zero
+			   01EA8F28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0193CF30 Free    37
-			Next:0193CEA1
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F30 Free    37
+			Next:01EA8EA1
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A InUse   42   1
-			   0193CF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F7A InUse   42   1
+			   01EA8F7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8F93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 >>> ALLOC C955 Customer 955,Harry King,NULL,NULL,95.00
@@ -1035,114 +1035,114 @@ LineItem      5           32
 * XXXXXX 5
 >>> DUMP
 	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 InUse   53   1
-			   0193CD9D S  S  X  0  0  4  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D98 InUse   53   1
+			   01EA8D9D S  S  X  0  0  4  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 34 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CDB1 3  s  =  @  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8DB1 3  s  =  @  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            33 73 3D 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-			   0193CDC5 thru 0193CDCC (1 lines) suppressed - all zero
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+			   01EA8DC5 thru 01EA8DCC (1 lines) suppressed - all zero
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 InUse   53   0
-			   0193CE07 9  5  5  .  .  .  .  .  H  a  r  r  y     K  i  n  g  .  .  
+	01EA8E02 InUse   53   0
+			   01EA8E07 9  5  5  .  .  .  .  .  H  a  r  r  y     K  i  n  g  .  .  
 			            39 35 35 00 00 00 00 00 48 61 72 72 79 20 4B 69 6E 67 00 00 
-			   0193CE1B thru 0193CE2E (1 lines) suppressed - all zero
-			   0193CE2F .  .  .  .  .  .  W  @  
+			   01EA8E1B thru 01EA8E2E (1 lines) suppressed - all zero
+			   01EA8E2F .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 C0 57 40 
-	0193CE37 Free    53
-			Next:0193CD98
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E37 Free    53
+			Next:01EA8D98
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 InUse   37   1
-			   0193CEA6 S  S  X  0  0  3  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+	01EA8EA1 InUse   37   1
+			   01EA8EA6 S  S  X  0  0  3  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            53 53 58 30 30 33 00 00 00 00 00 00 01 00 00 00 9A 99 99 99 
-			   0193CEBA .  Y  =  @  .  .  .  .  .  .  .  .  
+			   01EA8EBA .  Y  =  @  .  .  .  .  .  .  .  .  
 			            99 59 3D 40 00 00 00 00 00 00 00 00 
-	0193CEC6 InUse   53   0
-			   0193CECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
+	01EA8EC6 InUse   53   0
+			   01EA8ECB 9  3  3  .  .  .  .  .  R  a  y     K  i  n  g  .  .  .  .  
 			            39 33 33 00 00 00 00 00 52 61 79 20 4B 69 6E 67 00 00 00 00 
-			   0193CEDF thru 0193CEF2 (1 lines) suppressed - all zero
-			   0193CEF3 .  .  .  .  .  @  W  @  
+			   01EA8EDF thru 01EA8EF2 (1 lines) suppressed - all zero
+			   01EA8EF3 .  .  .  .  .  @  W  @  
 			            00 00 00 00 00 40 57 40 
-	0193CEFB InUse   53   0
-			   0193CF00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
+	01EA8EFB InUse   53   0
+			   01EA8F00 9  4  4  .  .  .  .  .  F  r  e  i  d  a     K  i  n  g  .  
 			            39 34 34 00 00 00 00 00 46 72 65 69 64 61 20 4B 69 6E 67 00 
-			   0193CF14 thru 0193CF27 (1 lines) suppressed - all zero
-			   0193CF28 .  .  .  .  .  .  W  @  
+			   01EA8F14 thru 01EA8F27 (1 lines) suppressed - all zero
+			   01EA8F28 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 80 57 40 
-	0193CF30 InUse   37   1
-			   0193CF35 S  S  X  0  0  2  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+	01EA8F30 InUse   37   1
+			   01EA8F35 S  S  X  0  0  2  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            53 53 58 30 30 32 00 00 00 00 00 00 01 00 00 00 00 00 00 00 
-			   0193CF49 .  @  =  @  .  .  .  .  .  .  .  .  
+			   01EA8F49 .  @  =  @  .  .  .  .  .  .  .  .  
 			            00 40 3D 40 00 00 00 00 00 00 00 00 
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A InUse   42   1
-			   0193CF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F7A InUse   42   1
+			   01EA8F7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8F93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 *
 >>> DEREF C933
@@ -1154,104 +1154,104 @@ LineItem      5           32
 * 64-bit: Collection should have two existing and gather three adj
 *
 >>> GCOLL
-	Collecting 0193CE37
-	Collecting 0193CEA1
-	Combining 0193CEA1 with 0193CEC6
-	Combining 0193CEA1 with 0193CEFB
+	Collecting 01EA8E37
+	Collecting 01EA8EA1
+	Combining 01EA8EA1 with 01EA8EC6
+	Combining 01EA8EA1 with 01EA8EFB
 >>> DUMP	Address  Mem   Size NodeType
-	0193CC20 InUse   53   0
-			   0193CC25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
+	01EA8C20 InUse   53   0
+			   01EA8C25 1  1  1  .  .  .  .  .  S  a  l     A     M  a  n  d  e  r  
 			            31 31 31 00 00 00 00 00 53 61 6C 20 41 20 4D 61 6E 64 65 72 
-			   0193CC39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 8F CC 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CC4D .  .  .  .  .  .  Y  @  
+			   01EA8C39 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 8F 8C EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8C4D .  .  .  .  .  .  Y  @  
 			            00 00 00 00 00 00 59 40 
-	0193CC55 InUse   53   0
-			   0193CC5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
+	01EA8C55 InUse   53   0
+			   01EA8C5A 2  2  2  .  .  .  .  .  B  a  r  b     W  i  r  e  .  .  .  
 			            32 32 32 00 00 00 00 00 42 61 72 62 20 57 69 72 65 00 00 00 
-			   0193CC6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 B4 CC 93 01 00 00 00 00 
-			   0193CC82 .  .  .  .  .  .  i  @  
+			   01EA8C6E .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 B4 8C EA 01 00 00 00 00 
+			   01EA8C82 .  .  .  .  .  .  i  @  
 			            00 00 00 00 00 00 69 40 
-	0193CC8A InUse   37   1
-			   0193CC8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8C8A InUse   37   1
+			   01EA8C8F P  P  F  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            50 50 46 30 30 31 00 00 00 00 00 00 05 00 00 00 66 66 66 66 
-			   0193CCA3 f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8CA3 f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CCAF InUse   53   0
-			   0193CCB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
+	01EA8CAF InUse   53   0
+			   01EA8CB4 3  3  3  .  .  .  .  .  M  i  s  t  y     W  i  n  d  .  .  
 			            33 33 33 00 00 00 00 00 4D 69 73 74 79 20 57 69 6E 64 00 00 
-			   0193CCC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 E9 CC 93 01 00 00 00 00 
-			   0193CCDC .  .  .  .  .  .  Q  @  
+			   01EA8CC8 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 E9 8C EA 01 00 00 00 00 
+			   01EA8CDC .  .  .  .  .  .  Q  @  
 			            00 00 00 00 00 80 51 40 
-	0193CCE4 InUse   53   0
-			   0193CCE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
+	01EA8CE4 InUse   53   0
+			   01EA8CE9 4  4  4  .  .  .  .  .  E  m  o  r  y     B  o  a  r  d  .  
 			            34 34 34 00 00 00 00 00 45 6D 6F 72 79 20 42 6F 61 72 64 00 
-			   0193CCFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 D2 CD 93 01 00 00 00 00 
-			   0193CD11 .  .  .  .  Q  8  F  @  
+			   01EA8CFD .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 D2 8D EA 01 00 00 00 00 
+			   01EA8D11 .  .  .  .  Q  8  F  @  
 			            B8 1E 85 EB 51 38 46 40 
-	0193CD19 InUse   53   0
-			   0193CD1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
+	01EA8D19 InUse   53   0
+			   01EA8D1E 5  5  5  .  .  .  .  .  H  o  l  l  y     G  r  a  p  h  .  
 			            35 35 35 00 00 00 00 00 48 6F 6C 6C 79 20 47 72 61 70 68 00 
-			   0193CD32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 53 CD 93 01 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CD46 .  .  .  .  .  .  K  @  
+			   01EA8D32 .  .  .  .  S  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 53 8D EA 01 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8D46 .  .  .  .  .  .  K  @  
 			            00 00 00 00 00 80 4B 40 
-	0193CD4E InUse   37   1
-			   0193CD53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D4E InUse   37   1
+			   01EA8D53 S  B  B  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 42 42 30 30 31 00 00 00 00 00 00 02 00 00 00 33 33 33 33 
-			   0193CD67 3  .  3  @  x  .  .  .  .  .  .  .  
-			            33 F3 33 40 78 CD 93 01 00 00 00 00 
-	0193CD73 InUse   37   1
-			   0193CD78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+			   01EA8D67 3  .  3  @  x  .  .  .  .  .  .  .  
+			            33 F3 33 40 78 8D EA 01 00 00 00 00 
+	01EA8D73 InUse   37   1
+			   01EA8D78 B  O  M  0  0  1  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            42 4F 4D 30 30 31 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CD8C 3  .  =  @  .  .  .  .  .  .  .  .  
+			   01EA8D8C 3  .  =  @  .  .  .  .  .  .  .  .  
 			            33 F3 3D 40 00 00 00 00 00 00 00 00 
-	0193CD98 InUse   53   1
-			   0193CD9D S  S  X  0  0  4  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
+	01EA8D98 InUse   53   1
+			   01EA8D9D S  S  X  0  0  4  .  .  .  .  .  .  .  .  .  .  3  3  3  3  
 			            53 53 58 30 30 34 00 00 00 00 00 00 01 00 00 00 33 33 33 33 
-			   0193CDB1 3  s  =  @  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8DB1 3  s  =  @  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            33 73 3D 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-			   0193CDC5 thru 0193CDCC (1 lines) suppressed - all zero
-	0193CDCD InUse   53   0
-			   0193CDD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
+			   01EA8DC5 thru 01EA8DCC (1 lines) suppressed - all zero
+	01EA8DCD InUse   53   0
+			   01EA8DD2 7  7  7  .  .  .  .  .  F  l  o     N     W  a  t  e  r  .  
 			            37 37 37 00 00 00 00 00 46 6C 6F 20 4E 20 57 61 74 65 72 00 
-			   0193CDE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
-			            00 00 00 00 00 00 00 00 00 00 00 00 5A CC 93 01 00 00 00 00 
-			   0193CDFA .  .  .  .  .  @  S  @  
+			   01EA8DE6 .  .  .  .  .  .  .  .  .  .  .  .  Z  .  .  .  .  .  .  .  
+			            00 00 00 00 00 00 00 00 00 00 00 00 5A 8C EA 01 00 00 00 00 
+			   01EA8DFA .  .  .  .  .  @  S  @  
 			            00 00 00 00 00 40 53 40 
-	0193CE02 InUse   53   0
-			   0193CE07 9  5  5  .  .  .  .  .  H  a  r  r  y     K  i  n  g  .  .  
+	01EA8E02 InUse   53   0
+			   01EA8E07 9  5  5  .  .  .  .  .  H  a  r  r  y     K  i  n  g  .  .  
 			            39 35 35 00 00 00 00 00 48 61 72 72 79 20 4B 69 6E 67 00 00 
-			   0193CE1B thru 0193CE2E (1 lines) suppressed - all zero
-			   0193CE2F .  .  .  .  .  .  W  @  
+			   01EA8E1B thru 01EA8E2E (1 lines) suppressed - all zero
+			   01EA8E2F .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 C0 57 40 
-	0193CE37 Free    53
+	01EA8E37 Free    53
 			Next:00000000
-	0193CE6C InUse   53   0
-			   0193CE71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
+	01EA8E6C InUse   53   0
+			   01EA8E71 9  2  2  .  .  .  .  .  M  a  e     K  i  n  g  .  .  .  .  
 			            39 32 32 00 00 00 00 00 4D 61 65 20 4B 69 6E 67 00 00 00 00 
-			   0193CE85 thru 0193CE98 (1 lines) suppressed - all zero
-			   0193CE99 .  .  .  .  .  .  W  @  
+			   01EA8E85 thru 01EA8E98 (1 lines) suppressed - all zero
+			   01EA8E99 .  .  .  .  .  .  W  @  
 			            00 00 00 00 00 00 57 40 
-	0193CEA1 Free   143
-			Next:0193CE37
-	0193CF30 InUse   37   1
-			   0193CF35 S  S  X  0  0  2  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+	01EA8EA1 Free   143
+			Next:01EA8E37
+	01EA8F30 InUse   37   1
+			   01EA8F35 S  S  X  0  0  2  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            53 53 58 30 30 32 00 00 00 00 00 00 01 00 00 00 00 00 00 00 
-			   0193CF49 .  @  =  @  .  .  .  .  .  .  .  .  
+			   01EA8F49 .  @  =  @  .  .  .  .  .  .  .  .  
 			            00 40 3D 40 00 00 00 00 00 00 00 00 
-	0193CF55 InUse   37   1
-			   0193CF5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F55 InUse   37   1
+			   01EA8F5A T  T  P  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            54 54 50 30 30 31 00 00 00 00 00 00 02 00 00 00 66 66 66 66 
-			   0193CF6E f  .  #  @  .  .  .  .  .  .  .  .  
+			   01EA8F6E f  .  #  @  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 
-	0193CF7A InUse   42   1
-			   0193CF7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
+	01EA8F7A InUse   42   1
+			   01EA8F7F N  H  C  0  0  1  .  .  .  .  .  .  .  .  .  .  f  f  f  f  
 			            4E 48 43 30 30 31 00 00 00 00 00 00 01 00 00 00 66 66 66 66 
-			   0193CF93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
+			   01EA8F93 f  .  #  @  .  .  .  .  .  .  .  .  .  .  .  .  .  
 			            66 E6 23 40 00 00 00 00 00 00 00 00 00 00 00 00 00 
 
 
