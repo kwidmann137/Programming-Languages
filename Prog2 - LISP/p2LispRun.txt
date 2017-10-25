@@ -1,0 +1,27 @@
+;;; ****** PGM2 RUN ******
+(repeat 'A 5)
+
+(duplicate ' (A B C)) 
+(duplicate ' (GUM (HAS BEEN) CHEWED)) 
+
+(duplicateN  ' (A B C) 2) 
+(duplicateN  ' (A B C) 3) 
+(duplicateN ' (GUM (HAS BEEN) CHEWED) 2) 
+
+(duplicateDeep  ' (A B C) ) 
+(duplicateDeep  ' (A (B D) E (F)) ) 
+(duplicateDeep '(A (B (D E) (F G)) (H I)) ) 
+
+(printWOP '(A B D))
+
+(printWOP '(A (B D) E F) )
+
+(printWOP NIL)
+
+(printWOP 'Hello)
+
+(evalEach '( (setf A 5) (print 'hello) (print 'there) A)) 
+
+(evalEach '( (setf x 10 ) (setf A '(x y z)) (print A) (setf B (car A)) (set B (+ 5 x)) ))
+(print B)
+(print X)

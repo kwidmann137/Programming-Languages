@@ -5,7 +5,7 @@
     )
 )
 
-(print (repeat 'Y '5))
+; (print (repeat 'Y '5))
 
 (defun duplicate(lis)
     (COND
@@ -15,8 +15,8 @@
     )
 )
 
-(print (duplicate '(X Y Z)))
-(print (duplicate ' (GUM (HAS BEEN) CHEWED)))
+; (print (duplicate '(X Y Z)))
+; (print (duplicate ' (GUM (HAS BEEN) CHEWED)))
 
 (defun duplicateN(lis N)
     (COND
@@ -29,8 +29,8 @@
 )
 
 ;;(trace duplicateN)
-(print (duplicateN  '(A B C) 3))
-(print (duplicateN ' (GUM (HAS BEEN) CHEWED) 4) )
+; (print (duplicateN  '(A B C) 3))
+; (print (duplicateN ' (GUM (HAS BEEN) CHEWED) 4) )
 
 (defun duplicateDeep(lis)
     (COND
@@ -40,9 +40,9 @@
     )
 )
 
-(print (duplicateDeep  ' (A B C) ))
-(print (duplicateDeep  ' (A (B D) E (F)) ) )
-(print (duplicateDeep '(A (B (D E) (F G)) (H I)) ) )
+; (print (duplicateDeep  ' (A B C) ))
+; (print (duplicateDeep  ' (A (B D) E (F)) ) )
+; (print (duplicateDeep '(A (B (D E) (F G)) (H I)) ) )
 
 (defun printWOP(lis)
     (terpri)
@@ -50,24 +50,25 @@
         ( (ATOM lis) (PRINC lis))
         ( T (printList lis) )
     )
-    (terpri)
+    ; (terpri)
     T
 )
 
 (defun printList(lis)
-    (COND
-        ( (NULL (CDR lis)) (PRINT (CAR lis) ) )
-    )
+    (PRINC (CAR lis))
+    (PRINC " ")
 
     (COND
-        (  )
+        ( ( NOT (NULL (CDR lis))) (printList (CDR lis)) )
     )
 )
 
+; (print (printWOP '(A B D)))
+; (print (printWOP '(A (B D) E F) ))
+; (print (printWOP NIL))
+; (print (printWOP 'A))
+
 (defun evalEach(lis)
-    ; (print lis)
-    ; (print (CAR lis))
-    ; (EVAL (CAR lis))
     (COND
         ( ( NOT (NULL (CDR lis))) (EVAL (CAR lis)) )
     )
@@ -78,9 +79,35 @@
     )
 )
 
-;(trace evalEach)
+; (print (evalEach '( (setf A 5) (print 'hello) (print 'there) A)))
+; (print (evalEach '( (setf x 10 ) (setf A '(x y z)) (print A) (setf B (car A)) (set B (+ 5 x)) )))
+; (print B)
+; (print X)
 
-(print (evalEach '( (setf A 5) (print 'hello) (print 'there) A)))
+;;; ****** PGM2 RUN ******
+(print(repeat 'A 5))
+
+(print(duplicate ' (A B C)) )
+(print(duplicate ' (GUM (HAS BEEN) CHEWED)) )
+
+(print(duplicateN  ' (A B C) 2) )
+(print(duplicateN  ' (A B C) 3) )
+(print(duplicateN ' (GUM (HAS BEEN) CHEWED) 2) )
+
+(print(duplicateDeep  ' (A B C) ) )
+(print(duplicateDeep  ' (A (B D) E (F)) ) )
+(print(duplicateDeep '(A (B (D E) (F G)) (H I)) ) )
+
+(print(printWOP '(A B D)))
+
+(print(printWOP '(A (B D) E F) ))
+
+(print(printWOP NIL))
+
+(print(printWOP 'Hello))
+
+(print(evalEach '( (setf A 5) (print 'hello) (print 'there) A) ) )
+
 (print (evalEach '( (setf x 10 ) (setf A '(x y z)) (print A) (setf B (car A)) (set B (+ 5 x)) )))
 (print B)
 (print X)
