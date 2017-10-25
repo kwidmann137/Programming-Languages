@@ -1,11 +1,8 @@
-#!/usr/bin/clisp
 (defun repeat(atm N)
     (cond
         ( (> N 0) (cons atm (repeat atm (- N 1))) )
     )
 )
-
-; (print (repeat 'Y '5))
 
 (defun duplicate(lis)
     (COND
@@ -14,9 +11,6 @@
         ( T (cons (CAR lis) (duplicate (CDR lis))) )
     )
 )
-
-; (print (duplicate '(X Y Z)))
-; (print (duplicate ' (GUM (HAS BEEN) CHEWED)))
 
 (defun duplicateN(lis N)
     (COND
@@ -28,10 +22,6 @@
     )
 )
 
-;;(trace duplicateN)
-; (print (duplicateN  '(A B C) 3))
-; (print (duplicateN ' (GUM (HAS BEEN) CHEWED) 4) )
-
 (defun duplicateDeep(lis)
     (COND
         ( (NULL lis) NIL )
@@ -39,10 +29,6 @@
         ( T (cons (duplicateDeep (CAR lis)) (duplicateDeep (CDR lis))) )
     )
 )
-
-; (print (duplicateDeep  ' (A B C) ))
-; (print (duplicateDeep  ' (A (B D) E (F)) ) )
-; (print (duplicateDeep '(A (B (D E) (F G)) (H I)) ) )
 
 (defun printWOP(lis)
     (terpri)
@@ -63,11 +49,6 @@
     )
 )
 
-; (print (printWOP '(A B D)))
-; (print (printWOP '(A (B D) E F) ))
-; (print (printWOP NIL))
-; (print (printWOP 'A))
-
 (defun evalEach(lis)
     (COND
         ( ( NOT (NULL (CDR lis))) (EVAL (CAR lis)) )
@@ -78,36 +59,3 @@
         ( T (evalEach (CDR lis)) )
     )
 )
-
-; (print (evalEach '( (setf A 5) (print 'hello) (print 'there) A)))
-; (print (evalEach '( (setf x 10 ) (setf A '(x y z)) (print A) (setf B (car A)) (set B (+ 5 x)) )))
-; (print B)
-; (print X)
-
-;;; ****** PGM2 RUN ******
-(print(repeat 'A 5))
-
-(print(duplicate ' (A B C)) )
-(print(duplicate ' (GUM (HAS BEEN) CHEWED)) )
-
-(print(duplicateN  ' (A B C) 2) )
-(print(duplicateN  ' (A B C) 3) )
-(print(duplicateN ' (GUM (HAS BEEN) CHEWED) 2) )
-
-(print(duplicateDeep  ' (A B C) ) )
-(print(duplicateDeep  ' (A (B D) E (F)) ) )
-(print(duplicateDeep '(A (B (D E) (F G)) (H I)) ) )
-
-(print(printWOP '(A B D)))
-
-(print(printWOP '(A (B D) E F) ))
-
-(print(printWOP NIL))
-
-(print(printWOP 'Hello))
-
-(print(evalEach '( (setf A 5) (print 'hello) (print 'there) A) ) )
-
-(print (evalEach '( (setf x 10 ) (setf A '(x y z)) (print A) (setf B (car A)) (set B (+ 5 x)) )))
-(print B)
-(print X)
