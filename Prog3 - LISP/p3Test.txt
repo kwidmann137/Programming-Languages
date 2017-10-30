@@ -1,0 +1,3 @@
+#!/usr/bin/clisp
+(load "p3Lisp.txt" :echo T :print T)
+(load "p3LispRun.txt" :echo T :print T)

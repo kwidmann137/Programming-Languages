@@ -1,46 +1,85 @@
+;;; REPEAT
+;;;    Parameters:
+;;;       atm - the atom to be repeated
+;;;       N - the number of times to repeat the atom
+;;;    Purpose:
+;;;       Returns a list containg the atom N times
 (defun repeat(atm N)
     (cond
         ( (> N 0) (cons atm (repeat atm (- N 1))) )
     )
 )
 
+;;; DUPLICATE
+;;;    Parameters:
+;;;       lis - the list to be duplicated
+;;;    Purpose:
+;;;       Duplicates the top level atoms
+;;;       in the supplied list
 (defun duplicate(lis)
     (COND
         ( (NULL lis) NIL )
-        ( (ATOM (CAR lis)) ( cons (CAR lis) ( cons  (CAR lis) (duplicate (CDR lis)) ) ) )
+        ( (ATOM (CAR lis)) ( cons (CAR lis) ( cons  (CAR lis) (duplicate (CDR lis)))) )
         ( T (cons (CAR lis) (duplicate (CDR lis))) )
     )
 )
 
+;;; DUPLICATEN
+;;;    Parameters:
+;;;       lis - the list to be duplicated
+;;;       N - number of times to repeat top level atoms
+;;;    Purpose:
+;;;       Returns a list that repeats top
+;;;       level atoms in the list N times
 (defun duplicateN(lis N)
     (COND
-        ((NULL lis) NIL)
-        ((AND (ATOM lis) (ZEROP N)) NIL)
-        ((AND (ATOM lis) (> N 0)) (cons lis (duplicateN  lis (- N 1))))
-        ((AND (ATOM (CAR lis)) (> N 1)) (append (duplicateN (CAR lis) N) (duplicateN (CDR lis) N)))
-        (T (cons (CAR lis) (duplicateN (CDR lis) N)))
+        ( (NULL lis) NIL )
+        ( (AND (ATOM lis) (ZEROP N)) NIL )
+        ( (AND (ATOM lis) (> N 0)) (cons lis (duplicateN  lis (- N 1))) )
+        ( (AND (ATOM (CAR lis)) (> N 1)) (append (duplicateN (CAR lis) N) (duplicateN (CDR lis) N)) )
+        ( T (cons (CAR lis) (duplicateN (CDR lis) N)) )
     )
 )
 
+;;; DUPLICATEDEEP
+;;;    Parameters:
+;;;       lis - the list of items to be duplicated
+;;;    Purpose:
+;;;       Recurses the list and any sub lists
+;;;       repeating atoms at every level
 (defun duplicateDeep(lis)
     (COND
         ( (NULL lis) NIL )
-        ( (ATOM (CAR lis)) ( cons (CAR lis) ( cons  (CAR lis) (duplicateDeep (CDR lis)) ) ) )
+        ( (ATOM (CAR lis)) ( cons (CAR lis)
+            (cons  (CAR lis) (duplicateDeep (CDR lis)))) )
         ( T (cons (duplicateDeep (CAR lis)) (duplicateDeep (CDR lis))) )
     )
 )
 
+;;; PRINTWOP
+;;;    Parameters:
+;;;       lis - the list of items to be printed
+;;;    Purpose:
+;;;       Prints the list supplied without the
+;;;       surrounding parentheses
 (defun printWOP(lis)
     (terpri)
     (COND
         ( (ATOM lis) (PRINC lis))
         ( T (printList lis) )
     )
-    ; (terpri)
+    (terpri)
     T
 )
 
+;;; PRINTLIST
+;;;    Parameters:
+;;;       lis - List of items to be printed
+;;;    Purpose:
+;;;       Prints the list supplied without surrounding
+;;;       parentheses.  A list must be supplied
 (defun printList(lis)
+
     (PRINC (CAR lis))
     (PRINC " ")
 
@@ -49,9 +88,14 @@
     )
 )
 
+;;; EVALEACH
+;;;    Parameters:
+;;;       lis - The list to be evaluated
+;;;    Purpose:
+;;;       Evalutes each item in the list
 (defun evalEach(lis)
     (COND
-        ( ( NOT (NULL (CDR lis))) (EVAL (CAR lis)) )
+        ( (NOT (NULL (CDR lis))) (EVAL (CAR lis)) )
     )
 
     (COND

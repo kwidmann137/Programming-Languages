@@ -1,0 +1,60 @@
+;;;DECREMENT
+;;;    Parameters:
+;;;       lis - The list to be evaluated
+;;;    Purpose:
+;;;       Evalutes each item in the list
+(defmacro -= (value decrement)
+    `(setf ,value ( - ,value ,decrement))
+)
+
+
+;;;SWITCH
+;;;    Parameters:
+;;;       lis - The list to be evaluated
+;;;    Purpose:
+;;;       Evalutes each item in the list
+(defmacro SELECT (value &rest pairs)
+    ; `(print ,value)
+    ; `(print ' ,pairs)
+    (let ((g (gensym))  )
+        `( do ((,g ' ,pairs (cdr ,g)) )
+            (print ,g)
+            ; (if  (or
+            ;        (EQL 'DEFAULT (cdar ,g))
+            ;        (MEMSET ,value (cdar ,g))
+            ;    )
+            ;    (return (evalEach (cddr ,g)))
+            ; )
+          )
+    )
+)
+
+; (trace SELECT)
+
+;;;MEMSET
+;;;    Parameters:
+;;;       lis - The list to be evaluated
+;;;    Purpose:
+;;;       Evalutes each item in the list
+(defun MEMSET (atm L)
+    (cond ( (NULL L) NIL )
+          ( (EQL atm (CAR L)) T )
+          ( T        (MEMSET atm (CDR L)) )
+    )
+)
+
+;;; EVALEACH
+;;;    Parameters:
+;;;       lis - The list to be evaluated
+;;;    Purpose:
+;;;       Evalutes each item in the list
+(defun evalEach(lis)
+    (COND
+        ( (NOT (NULL (CDR lis))) (EVAL (CAR lis)) )
+    )
+
+    (COND
+        ( (NULL (CDR lis)) (EVAL (CAR lis)) )
+        ( T (evalEach (CDR lis)) )
+    )
+)
