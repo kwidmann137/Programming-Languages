@@ -1,0 +1,39 @@
+;;; p4LispRun.txt - defines the diagnosis tree and runs your functions
+
+(QYN Q1  Q5 Q2 Pain)
+(QYN Q2  D1 Q3 Cough)
+(QYN Q3  D2 D3 Fever)
+(QYN Q5  Q8 Q6 Tenderness in abdomen)
+(QYN Q6  D7 Q7 Pain in throat)
+(QYN Q7  D6 D5 Fever)
+(QYN Q8  D9 D8 X-ray shows stones)
+(DIAG D1 Treat common cold)
+(DIAG D2 Treat Flu)
+(DIAG D3 Thank you for visiting)
+(DIAG d5 Prescribe acetaminophen)
+(DIAG D6 Treat Flu)
+(DIAG D7 Administer Strep Test)
+(DIAG D8 Schedule appendectomy)
+(DIAG d9 Treat kindey stones)
+
+(isa (tenderness in abdomen) pain)
+(isa (pain in throat) pain)
+(isa (x-ray shows stones) stones)
+
+(setf ROOT 'Q1)
+(printTree ROOT)
+
+(Symptom fever)
+(symptom pain in throat)
+(triage)
+
+(CLEARSYMPTOMS)
+
+(symptom fever)
+(triage)
+
+(CLEARSYMPTOMS)
+
+(symptom tenderness in abdomen)
+(symptom x-ray shows stones)
+(triage)

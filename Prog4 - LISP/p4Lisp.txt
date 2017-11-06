@@ -1,0 +1,102 @@
+(defmacro diag (id &rest diagnosis)
+	`( putp ',id DIAG-HT ',diagnosis )
+)
+
+(defmacro isa (expr &rest type)
+	`( putp ',expr ISA-HT ',type )
+)
+
+(defmacro symptom (&rest symptom)
+	`(if (getp ',symptom isa-ht)
+		(PROG ()
+			(putp (getp ',symptom isa-ht) symptom-HT 'T )
+			( putp ',symptom symptom-HT 'T )
+		)
+		( putp ',symptom symptom-HT 'T )
+	)
+)
+
+;;;Are we guranteed root will always be a tree
+(defun printTree (rootId)
+	(terpri)
+	(printWOP (getp rootId question-HT))
+	(printQChildren rootId 1)
+)
+
+(defun printQChildren (rootId level)
+	( setf left (car (getp rootId question-HT)) )
+	(COND 
+		( (getp left question-HT) 
+			(PROG ()
+				; (print (list "PRINTING LEFT: " level " - " left))
+				(indent level)
+				(printWOP (list "Y:" left (getp left question-HT)) )
+				(printQChildren left (1+ level))
+			)
+		)
+		((getp left diag-HT)
+			(PROG ()
+				; (print (list "PRINTING LEFT: " level " - " left))
+				(indent level)
+				(printWOP (list "Y:" left (getp left diag-HT)) )
+			)
+		)
+	)
+	( setf right (cadr (getp rootId question-HT)) )
+	(COND 
+		( (getp right question-HT) 
+			(PROG ()
+				; (print (list "PRINTING RIGHT:" level " - " right))
+				(indent level)
+				(printWOP (list "N:" right (getp right question-HT)) )
+				(printQChildren right (1+ level))
+			)
+		)
+		((getp right diag-HT) 
+			(PROG ()
+				; (print (list "PRINTING RIGHT:" level " - " right))
+				(indent level)
+				(printWOP (list "N:" right (getp right diag-HT)) )
+			)
+		)
+	)
+)
+
+; (trace printQChildren)
+
+(defun indent (level)
+	(do ( (spaces 0 (1+ spaces)) )
+		((> spaces (* level 6)) NIL)
+		(princ " ")
+	)
+)
+
+;;; PRINTWOP
+;;;    Parameters:
+;;;       lis - the list of items to be printed
+;;;    Purpose:
+;;;       Prints the list supplied without the
+;;;       surrounding parentheses
+(defun printWOP(lis)
+    (COND
+        ( (ATOM lis) (PRINC lis))
+        ( T (printList lis) )
+    )
+    (terpri)
+)
+
+;;; PRINTLIST
+;;;    Parameters:
+;;;       lis - List of items to be printed
+;;;    Purpose:
+;;;       Prints the list supplied without surrounding
+;;;       parentheses.  A list must be supplied
+(defun printList(lis)
+
+    (PRINC (CAR lis))
+    (PRINC " ")
+
+    (COND
+        ( (CDR lis) (printList (CDR lis)) )
+    )
+)

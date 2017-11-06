@@ -1,0 +1,243 @@
+kyle@Kyle-Desktop:~/Desktop/UTSA/CS3723 - Programming Languages/Prog3 - LISP$ clisp
+  i i i i i i i       ooooo    o        ooooooo   ooooo   ooooo
+  I I I I I I I      8     8   8           8     8     o  8    8
+  I  \ `+' /  I      8         8           8     8        8    8
+   \  `-+-'  /       8         8           8      ooooo   8oooo
+    `-__|__-'        8         8           8           8  8
+        |            8     o   8           8     o     8  8
+  ------+------       ooooo    8oooooo  ooo8ooo   ooooo   8
+
+Welcome to GNU CLISP 2.49 (2010-07-07) <http://clisp.cons.org/>
+
+Copyright (c) Bruno Haible, Michael Stoll 1992, 1993
+Copyright (c) Bruno Haible, Marcus Daniels 1994-1997
+Copyright (c) Bruno Haible, Pierpaolo Bernardi, Sam Steingold 1998
+Copyright (c) Bruno Haible, Sam Steingold 1999-2000
+Copyright (c) Sam Steingold, Bruno Haible 2001-2010
+
+Type :h and hit Enter for context help.
+
+[1]> (load "p3Lisp.txt" :echo T :print T)
+;; Loading file p3Lisp.txt ...
+;;;DECREMENT
+;;;    Parameters:
+;;;       value - The variable to be decremented
+;;;       decrement - Amount to decrement by
+;;;    Purpose:
+;;;       Subtract the decrement value from the value
+(defmacro -= (value decrement)
+    `(setf ,value ( - ,value ,decrement))
+)
+-=
+
+
+
+;;;SWITCH
+;;;    Parameters:
+;;;       value - Value to check for
+;;;       sets - The set includes the (when (cond list) (body of statements))
+;;;    Purpose:
+;;;       Evalutes case, if the value is 
+;;;       present in the case list, all 
+;;;       subsequent statements will be executed
+;;;    Example
+;;;    (select value
+;;;	        (when (A B)
+;;;	           ( statement )
+;;;			   ( ....      )
+;;;	        )
+;;;	        ...
+;;;	        (default
+;;;	           ( statement )
+;;;	        )
+;;;	   )
+(defmacro SELECT (value &rest sets)
+    (let ((g (gensym)) )
+        `(do ((,g ' ,sets (cdr ,g)) )
+            ( (NULL ,g) NIL )
+            (if  
+                (MEMSET ,value (cadar ,g))
+                (return (evalEach (cddar ,g)))
+                
+            )
+            (if
+                (EQL 'DEFAULT (caar ,g))
+                (return (evalEach (cdar ,g)))
+            )
+        )
+    )
+)
+SELECT
+
+
+;;;MEMSET
+;;;    Parameters:
+;;;       lis - The list to be evaluated
+;;;    Purpose:
+;;;       Evalutes each item in the list
+(defun MEMSET (atm L)
+    (cond ( (NULL L) NIL )
+          ( (EQL atm (CAR L)) T )
+          ( T (MEMSET atm (CDR L)) )
+    )
+)
+MEMSET
+
+
+;;; EVALEACH
+;;;    Parameters:
+;;;       lis - The list to be evaluated
+;;;    Purpose:
+;;;       Evalutes each item in the list
+(defun evalEach(lis)
+    (COND
+        ( (NOT (NULL (CDR lis))) (EVAL (CAR lis)) )
+    )
+
+    (COND
+        ( (NULL (CDR lis)) (EVAL (CAR lis)) )
+        ( T (evalEach (CDR lis)) )
+    )
+)
+EVALEACH
+;; Loaded file p3Lisp.txt
+T
+[2]> (load "p3LispRun.txt" :echo T :print T)
+;; Loading file p3LispRun.txt ...
+;;; -=
+(setf x 5 y 10)
+10
+
+(-= x 1)
+4
+
+x
+4
+(-= y x)
+6
+
+y
+6
+
+;;; select A.
+(setf good 0)
+0
+
+(setf bad 0)
+0
+
+(defvar grade)
+GRADE
+
+(defun gradeStuff (grade)
+    (select grade
+        (when (A B)
+           (setf good (+ 1 good))
+           (print "doing well")
+        )
+        (when (C)
+           (print "average"))
+        (when (D F)
+           (setf bad (+ bad 1))
+           (print "oh no")
+        )
+        (default
+           (print (list "unknown value=" grade)))
+    )
+)
+GRADESTUFF
+
+(gradeStuff 'A)
+"doing well" 
+"doing well"
+
+(gradeStuff 'B)
+"doing well" 
+"doing well"
+
+(gradeStuff 'C)
+"average" 
+"average"
+
+(gradeStuff 'D)
+"oh no" 
+"oh no"
+
+(gradeStuff 'F)
+"oh no" 
+"oh no"
+
+(gradestuff 'U)
+("unknown value=" U) 
+("unknown value=" U)
+
+(print (list "good=" good "bad=" bad))
+("good=" 2 "bad=" 2) 
+("good=" 2 "bad=" 2)
+
+
+;;; select B.
+
+(setf x 5 y 10)
+10
+
+(select (- y x)
+    (when (2 4 6 8)
+        (print "it is even")
+        (* y 2)
+    )
+    (when (1 3 5 7)
+        (print "it is odd")
+        (+ (* y 2) 1)
+    )
+    (default
+        (print "default")
+        y
+    )
+)
+"it is odd" 
+21
+
+(setf x 4 y 6)
+6
+
+(select (- y x)
+    (when (2 4 6 8)
+        (print "it is even")
+        (* y 2)
+    )
+    (when (1 3 5 7)
+        (print "it is odd")
+        (+ (* y 2) 1)
+    )
+    (default
+        (print "default")
+        y
+    )
+)
+"it is even" 
+12
+
+(setf x 5 y 20)
+20
+
+(select (- y x)
+    (when (2 4 6 8)
+        (print "it is even")
+        (* y 2)
+    )
+    (when (1 3 5 7)
+        (print "it is odd")
+        (+ (* y 2) 1)
+    )
+    (default
+        (print "default")
+        y
+    )
+)
+"default" 
+20
+;; Loaded file p3LispRun.txt
+T
+[3]> 
+

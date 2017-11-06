@@ -1,0 +1,56 @@
+;;; putp 
+;;;    Parameters:
+;;;       symbol   - symbol to be given the property
+;;;       ht       - hash table to store the symbol and its property value
+;;;       value    - the property value
+;;;    Purpose:
+;;;       stores the property value for the symbol in the specified hash table
+(defun putp (symbol ht value)
+    (setf (gethash symbol ht) value) )
+    
+;;; getp 
+;;;    Parameters:
+;;;       symbol   - symbol about which we want its property value
+;;;       ht       - hash table to store the symbol and its property value
+;;;    Purpose:
+;;;       returns the property value for the symbol in the specified hash table
+;;;    Returns
+;;;       The property value for the symbol in the specified hash table.
+;;;       If not found, NIL is returned.
+(defun getp (symbol ht)
+     (gethash symbol ht) )
+     
+; (trace getp)
+;;; set up question and diag hash tables
+(setf question-HT (MAKE-HASH-TABLE))
+(setf diag-HT (MAKE-HASH-TABLE))
+
+;;; since the key for both the symptom and isa hash tables is a list,
+;;; we have to tell LISP to use EQUAL for the entry comparison instead of EQ.
+
+(setf symptom-HT (MAKE-HASH-TABLE  :test #'equal))
+(setf isa-HT (MAKE-HASH-TABLE  :test #'equal))
+
+;;; qyn macro
+;;; Parameters:
+;;;    qid - unique ID of a question
+;;;    ex - the rest of the arguments make up a list which represents the question
+;;; Purpose:
+;;;    Inserts an entry into the question-HT with qid as the key and ex as the value.
+;;; Notes:
+;;;    A macro is used instead of a function so that the arguments do not have to be 
+;;;    quoted.
+
+(defmacro qyn (qid &rest ex)
+    `(putp ' ,qid question-HT  ' ,ex ) )
+
+;;; clearSymptoms 
+;;;    Parameters:
+;;;       n/a
+;;;    Purpose:
+;;;       Clears (i.e., deletes) all entries in the symptom-HT.
+;;;    Returns:
+;;;       n/a
+
+(defun clearSymptoms()
+   (clrhash symptom-HT)) 

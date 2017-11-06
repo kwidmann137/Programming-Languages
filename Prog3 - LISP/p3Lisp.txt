@@ -1,8 +1,9 @@
 ;;;DECREMENT
 ;;;    Parameters:
-;;;       lis - The list to be evaluated
+;;;       value - The variable to be decremented
+;;;       decrement - Amount to decrement by
 ;;;    Purpose:
-;;;       Evalutes each item in the list
+;;;       Subtract the decrement value from the value
 (defmacro -= (value decrement)
     `(setf ,value ( - ,value ,decrement))
 )
@@ -10,26 +11,39 @@
 
 ;;;SWITCH
 ;;;    Parameters:
-;;;       lis - The list to be evaluated
+;;;       value - Value to check for
+;;;       sets - The set includes the (when (cond list) (body of statements))
 ;;;    Purpose:
-;;;       Evalutes each item in the list
-(defmacro SELECT (value &rest pairs)
-    ; `(print ,value)
-    ; `(print ' ,pairs)
-    (let ((g (gensym))  )
-        `( do ((,g ' ,pairs (cdr ,g)) )
-            (print ,g)
-            ; (if  (or
-            ;        (EQL 'DEFAULT (cdar ,g))
-            ;        (MEMSET ,value (cdar ,g))
-            ;    )
-            ;    (return (evalEach (cddr ,g)))
-            ; )
-          )
+;;;       Evalutes case, if the value is 
+;;;       present in the case list, all 
+;;;       subsequent statements will be executed
+;;;    Example
+;;;    (select value
+;;;	        (when (A B)
+;;;	           ( statement )
+;;;			   ( ....      )
+;;;	        )
+;;;	        ...
+;;;	        (default
+;;;	           ( statement )
+;;;	        )
+;;;	   )
+(defmacro SELECT (value &rest sets)
+    (let ((g (gensym)) )
+        `(do ((,g ' ,sets (cdr ,g)) )
+            ( (NULL ,g) NIL )
+            (if  
+                (MEMSET ,value (cadar ,g))
+                (return (evalEach (cddar ,g)))
+                
+            )
+            (if
+                (EQL 'DEFAULT (caar ,g))
+                (return (evalEach (cdar ,g)))
+            )
+        )
     )
 )
-
-; (trace SELECT)
 
 ;;;MEMSET
 ;;;    Parameters:
@@ -39,7 +53,7 @@
 (defun MEMSET (atm L)
     (cond ( (NULL L) NIL )
           ( (EQL atm (CAR L)) T )
-          ( T        (MEMSET atm (CDR L)) )
+          ( T (MEMSET atm (CDR L)) )
     )
 )
 

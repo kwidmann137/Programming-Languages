@@ -1,0 +1,4 @@
+#!/usr/bin/clisp
+(load "p4LispDef.txt" :echo T :print T)
+(load "p4Lisp.txt" :echo T :print T)
+(load "p4LispRun.txt" :echo T :print T)
