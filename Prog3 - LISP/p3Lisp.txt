@@ -14,8 +14,8 @@
 ;;;       value - Value to check for
 ;;;       sets - The set includes the (when (cond list) (body of statements))
 ;;;    Purpose:
-;;;       Evalutes case, if the value is 
-;;;       present in the case list, all 
+;;;       Evalutes case, if the value is
+;;;       present in the case list, all
 ;;;       subsequent statements will be executed
 ;;;    Example
 ;;;    (select value
@@ -32,10 +32,10 @@
     (let ((g (gensym)) )
         `(do ((,g ' ,sets (cdr ,g)) )
             ( (NULL ,g) NIL )
-            (if  
+            (if
                 (MEMSET ,value (cadar ,g))
                 (return (evalEach (cddar ,g)))
-                
+
             )
             (if
                 (EQL 'DEFAULT (caar ,g))
