@@ -114,17 +114,33 @@
 )
 
 (defun triage ()
-    (setf currQuestion (caddr (getp ROOT question-HT)) )
-    (print (caddr (getp ROOT question-HT)))
-    (print currQuestion)
-    (print (getp (list currQuestion) symptom-HT))
-    (print (getp '(PAIN) symptom-HT))
-    (COND
-        (
-            (getp currQuestion symptom-HT)
-            NIL
-        )
+    (setf currQuestion (getp ROOT question-HT) )
+    (setf currKey ROOT)
+    (terpri)
+    (setf diagnosis 
+    	(DO ( (currSymptom (cddr currQuestion) ) )
+	        ( (getp currKey DIAG-HT) (getp currKey diag-HT) )
+	        (COND
+	        	( (getp currSymptom symptom-HT) 
+	        		(PROG ()
+	        			(printWOP (list "ID:" currKey ":" currQuestion "? Y"))
+	        			(setf currKey (car currQuestion))
+	        		)
+	        	)
+	        	( T (PROG ()
+	        			(printWOP (list "ID:" currKey ":" currQuestion "? N"))
+	        			(setf currKey (cadr currQuestion))
+	        		)
+	        	)
+	        )
+	        (terpri)
+	        (setf currQuestion (getp currKey question-HT) )
+	        (COND 
+	        	( currSymptom (setf currSymptom (cddr currQuestion)) )
+	        )
+	    )
     )
+    (printWOP diagnosis)
 )
 
 ;;;MEMSET
