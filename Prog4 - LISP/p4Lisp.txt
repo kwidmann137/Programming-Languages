@@ -1,28 +1,46 @@
+;;; DIAG
+;;;    Parameters:
+;;;         id - the key for the diagnosis
+;;;         diagnosis - the diangnosis
+;;;    Purpose:
+;;;         Stores the diagnosis in the DIAG-HT hash table
 (defmacro diag (id &rest diagnosis)
 	`( putp ',id DIAG-HT ',diagnosis )
 )
 
+;;; ISA
+;;;    Parameters:
+;;;         expr - The expression which acts as a key
+;;;         type - The type the expression belongs to
+;;;    Purpose:
+;;;         Puts the expression in the ISA-HT hash table
 (defmacro isa (expr &rest type)
 	`( putp ',expr ISA-HT ',type )
 )
 
+;;; SYMPTOM
+;;;    Parameters:
+;;;         symptom - the symptom to put in the hash table
+;;;    Purpose:
+;;;         Puts the symptom in the SYMPTOM-HT hash table
+;;;         Also adds any types associated with the symptom via
+;;;         the ISA-HT as a symptom
 (defmacro symptom (&rest symptom)
 	`(if (getp ',symptom isa-ht)
 		(PROG ()
 			(putp (getp ',symptom isa-ht) symptom-HT 'T )
-			( putp ',symptom symptom-HT 'T )
+			(RETURN  (putp ',symptom symptom-HT 'T) )
+
 		)
 		( putp ',symptom symptom-HT 'T )
 	)
 )
 
-(Symptom fever)
-(symptom pain in throat)
-
-(print (getp '(fever) symptom-HT) )
-(print (getp '(pain in throat) symptom-HT) )
-
-;;;Are we guranteed root will always be a tree
+;;; PRINTTREE
+;;;    Parameters:
+;;;         rootId - the root question to print from
+;;;    Purpose:
+;;;         Pretty prints the tree starting from the root supplied
 (defun printTree (rootId)
 	(terpri)
 	(printWOP (getp rootId question-HT))
@@ -30,12 +48,18 @@
 	(printQChildren rootId 1)
 )
 
+;;; PRINTQCHILDREN
+;;;    Parameters:
+;;;         rootId - The question whose children to print
+;;;         level - the depth in the tree
+;;;    Purpose:
+;;;         Prints the children of the question given
+;;;         indenting based upon level to achieve pretty print
 (defun printQChildren (rootId level)
 	( setf left (car (getp rootId question-HT)) )
 	(COND
 		( (getp left question-HT)
 			(PROG ()
-				; (print (list "PRINTING LEFT: " level " - " left))
 				(indent level)
 				(printWOP (list "Y:" left) )
                 (printWOP  (getp left question-HT) )
@@ -45,7 +69,6 @@
 		)
 		((getp left diag-HT)
 			(PROG ()
-				; (print (list "PRINTING LEFT: " level " - " left))
 				(indent level)
 				(printWOP (list "Y:" left) )
                 (printWOP (getp left diag-HT) )
@@ -57,7 +80,6 @@
 	(COND
 		( (getp right question-HT)
 			(PROG ()
-				; (print (list "PRINTING RIGHT:" level " - " right))
 				(indent level)
 				(printWOP (list "N:" right) )
                 (printWOP (getp right question-HT) )
@@ -67,7 +89,6 @@
 		)
 		((getp right diag-HT)
 			(PROG ()
-				; (print (list "PRINTING RIGHT:" level " - " right))
 				(indent level)
 				(printWOP (list "N:" right) )
                 (printWOP (getp right diag-HT))
@@ -77,6 +98,11 @@
 	)
 )
 
+;;; INDENT
+;;;    Parameters:
+;;;         level - the number of indents to print
+;;;    Purpose:
+;;;         Prints the given number of indents represented as 6 spaces
 (defun indent (level)
 	(do ( (spaces 0 (1+ spaces)) )
 		((> spaces (* level 6)) NIL)
@@ -113,44 +139,34 @@
     )
 )
 
+;;; TRIAGE
+;;;    Purpose:
+;;;         Triages the patient given the symptoms
+;;;         currently in the symptom hash table
+;;;         and the questions and diagnosis given
 (defun triage ()
     (setf currQuestion (getp ROOT question-HT) )
     (setf currKey ROOT)
     (terpri)
-    (setf diagnosis 
-    	(DO ( (currSymptom (cddr currQuestion) ) )
-	        ( (getp currKey DIAG-HT) (getp currKey diag-HT) )
-	        (COND
-	        	( (getp currSymptom symptom-HT) 
-	        		(PROG ()
-	        			(printWOP (list "ID:" currKey ":" currQuestion "? Y"))
-	        			(setf currKey (car currQuestion))
-	        		)
-	        	)
-	        	( T (PROG ()
-	        			(printWOP (list "ID:" currKey ":" currQuestion "? N"))
-	        			(setf currKey (cadr currQuestion))
-	        		)
-	        	)
-	        )
-	        (terpri)
-	        (setf currQuestion (getp currKey question-HT) )
-	        (COND 
-	        	( currSymptom (setf currSymptom (cddr currQuestion)) )
-	        )
-	    )
-    )
-    (printWOP diagnosis)
-)
-
-;;;MEMSET
-;;;    Parameters:
-;;;       lis - The list to be evaluated
-;;;    Purpose:
-;;;       Evalutes each item in the list
-(defun MEMSET (atm L)
-    (cond ( (NULL L) NIL )
-          ( (EQL atm (CAR L)) T )
-          ( T (MEMSET atm (CDR L)) )
+    (DO ( (currSymptom (cddr currQuestion) ) )
+        ( (getp currKey DIAG-HT) (getp currKey diag-HT) )
+        (COND
+            ( (getp currSymptom symptom-HT)
+                (PROG ()
+                    (printWOP (list "ID:" currKey ":" currQuestion "? Y"))
+                    (setf currKey (car currQuestion))
+                )
+            )
+            ( T (PROG ()
+                    (printWOP (list "ID:" currKey ":" currQuestion "? N"))
+                    (setf currKey (cadr currQuestion))
+                )
+            )
+        )
+        (terpri)
+        (setf currQuestion (getp currKey question-HT) )
+        (COND
+            ( currSymptom (setf currSymptom (cddr currQuestion)) )
+        )
     )
 )
