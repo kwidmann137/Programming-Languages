@@ -1,6 +1,10 @@
 import re
 from p5team import nickNamesD
 
+"""
+List that contains all splashy phrases
+indicating the first team listed lost
+"""
 lossAliasL = ["LOSES TO",
               "LOST TO",
               "BEAT BY",
@@ -12,6 +16,11 @@ lossAliasL = ["LOSES TO",
               "UPSET BY",
               "EATEN BY",
               "DESTROYED BY"]
+
+"""
+List that contains all splashy phrases
+indicating the first team won
+"""
 winAliasL = ["BEAT", "BEATS",
              "DEFEAT", "DEFEATS", "DEFEATED",
              "SLAUGHTER", "SLAUGHTERS", "SLAUGHTERED",
@@ -23,7 +32,12 @@ winAliasL = ["BEAT", "BEATS",
              "SOAR", "SOARS", "SOAR OVER", "SOARS OVER"]
 
 
-def getTeams(line):
+def get_teams_from_score_line(line):
+    """
+    Gets the first and second team listed in the score line
+    :param line: the score line to parse
+    :return: team1 - first team listed, team2 - second team listed
+    """
     team1 = ""
     index1 = -1
     team2 = ""
@@ -31,27 +45,27 @@ def getTeams(line):
 
     # first check if team name matches
     for team, nicknames in nickNamesD.items():
-        reString = r'\b' + re.escape(team.strip()) + r'\b'
-        teamMatch = re.search(reString, line)
-        if teamMatch is not None:
+        re_string = r'\b' + re.escape(team.strip()) + r'\b'
+        team_match = re.search(re_string, line)
+        if team_match is not None:
             if team1 == "" and index1 == -1:
                 team1 = team.strip()
-                index1 = teamMatch.start()
+                index1 = team_match.start()
             else:
                 team2 = team.strip()
-                index2 = teamMatch.start()
+                index2 = team_match.start()
         # then check if nickname matches
         else:
             for nickname in nicknames:
-                reString = r'\b' + re.escape(nickname.strip()) + r'\b'
-                nicknameMatch = re.search(reString, line)
-                if nicknameMatch is not None:
+                re_string = r'\b' + re.escape(nickname.strip()) + r'\b'
+                nickname_match = re.search(re_string, line)
+                if nickname_match is not None:
                     if team1 == "" and index1 == -1:
                         team1 = team.strip()
-                        index1 = nicknameMatch.start()
+                        index1 = nickname_match.start()
                     else:
                         team2 = team.strip()
-                        index2 = nicknameMatch.start()
+                        index2 = nickname_match.start()
 
     # if both teams were not found return None
     # otherwise return according to order in sentence
@@ -63,7 +77,12 @@ def getTeams(line):
         return team2, team1
 
 
-def determineIfFirstTeamWon(line):
+def determine_if_first_team_won(line):
+    """
+    Determines if the first team won based off the splashy phrase
+    :param line: the score line to parse
+    :return: true if first team won, false if they lost, None if invalid splashy phrase
+    """
     # if the splashy is a loss alias then the first team did not win
     for splashy in lossAliasL:
         if re.search(re.escape(splashy.strip()), line):
@@ -78,15 +97,29 @@ def determineIfFirstTeamWon(line):
     return None
 
 
-def getScore(line):
-    scoreRE = re.search(r'(\d+)[^\d]*(\d+)', line)
-    if scoreRE is not None:
-        return int(scoreRE.group(1)), int(scoreRE.group(2))
+def get_score_from_score_line(line):
+    """
+    Gets the scores from a score line
+    :param line: score line to parse
+    :return: score1 - first score, score2 - second score
+    """
+    score_reg_ex = re.search(r'(\d+)[^\d]*(\d+)', line)
+    if score_reg_ex is not None:
+        return int(score_reg_ex.group(1)), int(score_reg_ex.group(2))
     return None
 
 
-def parseScoreLine(scoreLine):
-    team1, team2 = getTeams(scoreLine)
-    firstTeamWon = determineIfFirstTeamWon(scoreLine)
-    score1, score2 = getScore(scoreLine)
-    return team1, team2, firstTeamWon, score1, score2
+def parse_score_line(line):
+    """
+    Parses score line to get teams, scores and if first team won
+    :param line: score line to parse
+    :return: team1 - first team listed,
+        team2 - second team listed
+        first_team_won - boolean if first team won, might be None
+        score1 - first score
+        score2 - second score
+    """
+    team1, team2 = get_teams_from_score_line(line)
+    first_team_won = determine_if_first_team_won(line)
+    score1, score2 = get_score_from_score_line(line)
+    return team1, team2, first_team_won, score1, score2
