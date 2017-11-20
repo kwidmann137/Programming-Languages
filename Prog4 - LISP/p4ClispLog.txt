@@ -1,0 +1,432 @@
+fox01{qox385}/home/qox385/courses/cs/cs3723/Prog4: clisp
+  i i i i i i i       ooooo    o        ooooooo   ooooo   ooooo
+  I I I I I I I      8     8   8           8     8     o  8    8
+  I  \ `+' /  I      8         8           8     8        8    8
+   \  `-+-'  /       8         8           8      ooooo   8oooo
+    `-__|__-'        8         8           8           8  8
+        |            8     o   8           8     o     8  8
+  ------+------       ooooo    8oooooo  ooo8ooo   ooooo   8
+
+Welcome to GNU CLISP 2.49 (2010-07-07) <http://clisp.cons.org/>
+
+Copyright (c) Bruno Haible, Michael Stoll 1992, 1993
+Copyright (c) Bruno Haible, Marcus Daniels 1994-1997
+Copyright (c) Bruno Haible, Pierpaolo Bernardi, Sam Steingold 1998
+Copyright (c) Bruno Haible, Sam Steingold 1999-2000
+Copyright (c) Sam Steingold, Bruno Haible 2001-2010
+
+Type :h and hit Enter for context help.
+
+[1]> (load "p4LispDef.txt" :echo T :print T)
+;; Loading file p4LispDef.txt ...
+;;; putp 
+;;;    Parameters:
+;;;       symbol   - symbol to be given the property
+;;;       ht       - hash table to store the symbol and its property value
+;;;       value    - the property value
+;;;    Purpose:
+;;;       stores the property value for the symbol in the specified hash table
+(defun putp (symbol ht value)
+    (setf (gethash symbol ht) value) )
+PUTP
+
+    
+;;; getp 
+;;;    Parameters:
+;;;       symbol   - symbol about which we want its property value
+;;;       ht       - hash table to store the symbol and its property value
+;;;    Purpose:
+;;;       returns the property value for the symbol in the specified hash table
+;;;    Returns
+;;;       The property value for the symbol in the specified hash table.
+;;;       If not found, NIL is returned.
+(defun getp (symbol ht)
+     (gethash symbol ht) )
+GETP
+
+     
+; (trace getp)
+;;; set up question and diag hash tables
+(setf question-HT (MAKE-HASH-TABLE))
+#S(HASH-TABLE :TEST FASTHASH-EQL)
+
+(setf diag-HT (MAKE-HASH-TABLE))
+#S(HASH-TABLE :TEST FASTHASH-EQL)
+
+
+;;; since the key for both the symptom and isa hash tables is a list,
+;;; we have to tell LISP to use EQUAL for the entry comparison instead of EQ.
+
+(setf symptom-HT (MAKE-HASH-TABLE  :test #'equal))
+#S(HASH-TABLE :TEST FASTHASH-EQUAL)
+
+(setf isa-HT (MAKE-HASH-TABLE  :test #'equal))
+#S(HASH-TABLE :TEST FASTHASH-EQUAL)
+
+
+;;; qyn macro
+;;; Parameters:
+;;;    qid - unique ID of a question
+;;;    ex - the rest of the arguments make up a list which represents the question
+;;; Purpose:
+;;;    Inserts an entry into the question-HT with qid as the key and ex as the value.
+;;; Notes:
+;;;    A macro is used instead of a function so that the arguments do not have to be 
+;;;    quoted.
+
+(defmacro qyn (qid &rest ex)
+    `(putp ' ,qid question-HT  ' ,ex ) )
+QYN
+
+
+;;; clearSymptoms 
+;;;    Parameters:
+;;;       n/a
+;;;    Purpose:
+;;;       Clears (i.e., deletes) all entries in the symptom-HT.
+;;;    Returns:
+;;;       n/a
+
+(defun clearSymptoms()
+   (clrhash symptom-HT))
+CLEARSYMPTOMS
+ 
+;; Loaded file p4LispDef.txt
+T
+[2]> (load "p4Lisp.txt" :echo T :print T)
+;; Loading file p4Lisp.txt ...
+;;; DIAG
+;;;    Parameters:
+;;;         id - the key for the diagnosis
+;;;         diagnosis - the diangnosis
+;;;    Purpose:
+;;;         Stores the diagnosis in the DIAG-HT hash table
+(defmacro diag (id &rest diagnosis)
+	`( putp ',id DIAG-HT ',diagnosis )
+)
+DIAG
+
+
+;;; ISA
+;;;    Parameters:
+;;;         expr - The expression which acts as a key
+;;;         type - The type the expression belongs to
+;;;    Purpose:
+;;;         Puts the expression in the ISA-HT hash table
+(defmacro isa (expr &rest type)
+	`( putp ',expr ISA-HT ',type )
+)
+ISA
+
+
+;;; SYMPTOM
+;;;    Parameters:
+;;;         symptom - the symptom to put in the hash table
+;;;    Purpose:
+;;;         Puts the symptom in the SYMPTOM-HT hash table
+;;;         Also adds any types associated with the symptom via
+;;;         the ISA-HT as a symptom
+(defmacro symptom (&rest symptom)
+	`(if (getp ',symptom isa-ht)
+		(PROG ()
+			(putp (getp ',symptom isa-ht) symptom-HT 'T )
+			(putp ',symptom symptom-HT 'T)
+		)
+		( putp ',symptom symptom-HT 'T )
+	)
+)
+SYMPTOM
+
+
+;;; PRINTTREE
+;;;    Parameters:
+;;;         rootId - the root question to print from
+;;;    Purpose:
+;;;         Pretty prints the tree starting from the root supplied
+(defun printTree (rootId)
+	(terpri)
+	(printWOP (list rootId "Question:"))
+	(printWOP (cddr (getp rootId question-HT)) )
+	(princ "?")
+	(printQChildren rootId 1)
+)
+PRINTTREE
+
+
+;;; PRINTQCHILDREN
+;;;    Parameters:
+;;;         rootId - The question whose children to print
+;;;         level - the depth in the tree
+;;;    Purpose:
+;;;         Prints the children of the question given
+;;;         indenting based upon level to achieve pretty print
+(defun printQChildren (rootId level)
+	( setf left (car (getp rootId question-HT)) )
+	(COND
+		( (getp left question-HT)
+			(PROG ()
+				(printQuestion "Y:" level left)
+				(printQChildren left (1+ level))
+			)
+		)
+		((getp left diag-HT)
+			(printDiagnosis "Y:" level left)
+		)
+	)
+	( setf right (cadr (getp rootId question-HT)) )
+	(COND
+		( (getp right question-HT)
+			(PROG ()
+				(printQuestion "N:" level right)
+				(printQChildren right (1+ level))
+			)
+		)
+		((getp right diag-HT)
+			(printDiagnosis "N:" level right)
+		)
+	)
+)
+PRINTQCHILDREN
+
+
+;;; PRINTQUESTION
+;;; Parameters
+;;; 	tag - Tag indicates if it is the yes or no response to parent
+;;;		level - indicates the level in the tree
+;;;		question - question to print
+;;;	Purpose
+;;;		Prints a question formatted for the tree
+(defun printQuestion(tag level question)
+	(terpri)
+	(indent level)
+	(printWOP (list tag question "Question:") )
+    (printWOP  (cddr (getp question question-HT)))
+    (princ "?")
+)
+PRINTQUESTION
+
+
+;;; PRINTDIAGNOSIS
+;;; Parameters
+;;; 	tag - Tag indicates if it is the yes or no response to parent
+;;;		level - indicates the level in the tree
+;;;		diag - diagnosis to print
+;;;	Purpose
+;;;		Prints a diagnosis formatted for the tree
+(defun printDiagnosis(tag level diag)
+	(terpri)
+	(indent level)
+	(printWOP (list tag diag "Diagnosis:") )
+    (printWOP (getp diag diag-HT) )
+)
+PRINTDIAGNOSIS
+
+
+;;; INDENT
+;;;    Parameters:
+;;;         level - the number of indents to print
+;;;    Purpose:
+;;;         Prints the given number of indents represented as 6 spaces
+(defun indent (level)
+	(do ( (spaces 0 (1+ spaces)) )
+		((> spaces (* level 6)) NIL)
+		(princ " ")
+	)
+)
+INDENT
+
+
+;;; PRINTWOP
+;;;    Parameters:
+;;;       lis - the list of items to be printed
+;;;    Purpose:
+;;;       Prints the list supplied without the
+;;;       surrounding parentheses
+(defun printWOP(lis)
+    (COND
+        ( (ATOM lis) (PRINC lis))
+        ( T (printList lis) )
+    )
+)
+PRINTWOP
+
+
+;;; PRINTLIST
+;;;    Parameters:
+;;;       lis - List of items to be printed
+;;;    Purpose:
+;;;       Prints the list supplied without surrounding
+;;;       parentheses.  A list must be supplied
+(defun printList(lis)
+    (PRINC (CAR lis))
+    (PRINC " ")
+    (COND
+        ( (CDR lis) (printList (CDR lis)) )
+    )
+)
+PRINTLIST
+
+
+;;; TRIAGE
+;;;    Purpose:
+;;;         Triages the patient given the symptoms
+;;;         currently in the symptom hash table
+;;;         and the questions and diagnosis given
+(defun triage ()
+    (setf currQuestion (getp ROOT question-HT) )
+    (setf currKey ROOT)
+    (DO ( (currSymptom (cddr currQuestion) ) )
+        ( (getp currKey DIAG-HT) (getp currKey diag-HT) )
+        (COND
+            ( (getp currSymptom symptom-HT)
+                (PROG ()
+                	(terpri)
+                    (printWOP (list "ID:" currKey currQuestion "Y"))
+                    (setf currKey (car currQuestion))
+                )
+            )
+            ( T (PROG ()
+            		(terpri)
+                    (printWOP (list "ID:" currKey currQuestion "N"))
+                    (setf currKey (cadr currQuestion))
+                )
+            )
+        )
+        (setf currQuestion (getp currKey question-HT) )
+        (COND
+            ( currSymptom (setf currSymptom (cddr currQuestion)) )
+        )
+    )
+)
+TRIAGE
+;; Loaded file p4Lisp.txt
+T
+[3]> (load "p4LispRun.txt" :echo T :print T)
+;; Loading file p4LispRun.txt ...
+;;; p4LispRun.txt - defines the diagnosis tree and runs your functions
+
+(QYN Q1  Q5 Q2 Pain)
+(Q5 Q2 PAIN)
+
+(QYN Q2  D1 Q3 Cough)
+(D1 Q3 COUGH)
+
+(QYN Q3  D2 D3 Fever)
+(D2 D3 FEVER)
+
+(QYN Q5  Q8 Q6 Tenderness in abdomen)
+(Q8 Q6 TENDERNESS IN ABDOMEN)
+
+(QYN Q6  D7 Q7 Pain in throat)
+(D7 Q7 PAIN IN THROAT)
+
+(QYN Q7  D6 D5 Fever)
+(D6 D5 FEVER)
+
+(QYN Q8  D9 D8 X-ray shows stones)
+(D9 D8 X-RAY SHOWS STONES)
+
+(DIAG D1 Treat common cold)
+(TREAT COMMON COLD)
+
+(DIAG D2 Treat Flu)
+(TREAT FLU)
+
+(DIAG D3 Thank you for visiting)
+(THANK YOU FOR VISITING)
+
+(DIAG d5 Prescribe acetaminophen)
+(PRESCRIBE ACETAMINOPHEN)
+
+(DIAG D6 Treat Flu)
+(TREAT FLU)
+
+(DIAG D7 Administer Strep Test)
+(ADMINISTER STREP TEST)
+
+(DIAG D8 Schedule appendectomy)
+(SCHEDULE APPENDECTOMY)
+
+(DIAG d9 Treat kindey stones)
+(TREAT KINDEY STONES)
+
+
+(isa (tenderness in abdomen) pain)
+(PAIN)
+
+(isa (pain in throat) pain)
+(PAIN)
+
+(isa (x-ray shows stones) stones)
+(STONES)
+
+
+(setf ROOT 'Q1)
+Q1
+
+(printTree ROOT)
+Q1 Question: PAIN ?
+       Y: Q5 Question: TENDERNESS IN ABDOMEN ?
+             Y: Q8 Question: X-RAY SHOWS STONES ?
+                   Y: D9 Diagnosis: TREAT KINDEY STONES 
+                   N: D8 Diagnosis: SCHEDULE APPENDECTOMY 
+             N: Q6 Question: PAIN IN THROAT ?
+                   Y: D7 Diagnosis: ADMINISTER STREP TEST 
+                   N: Q7 Question: FEVER ?
+                         Y: D6 Diagnosis: TREAT FLU 
+                         N: D5 Diagnosis: PRESCRIBE ACETAMINOPHEN 
+       N: Q2 Question: COUGH ?
+             Y: D1 Diagnosis: TREAT COMMON COLD 
+             N: Q3 Question: FEVER ?
+                   Y: D2 Diagnosis: TREAT FLU 
+                   N: D3 Diagnosis: THANK YOU FOR VISITING 
+NIL
+
+
+(Symptom fever)
+T
+
+(symptom pain in throat)
+NIL
+
+(triage)
+ID: Q1 (Q5 Q2 PAIN) Y 
+ID: Q5 (Q8 Q6 TENDERNESS IN ABDOMEN) N 
+ID: Q6 (D7 Q7 PAIN IN THROAT) Y 
+(ADMINISTER STREP TEST)
+
+
+(CLEARSYMPTOMS)
+#S(HASH-TABLE :TEST FASTHASH-EQUAL)
+
+
+(symptom fever)
+T
+
+(triage)
+ID: Q1 (Q5 Q2 PAIN) N 
+ID: Q2 (D1 Q3 COUGH) N 
+ID: Q3 (D2 D3 FEVER) Y 
+(TREAT FLU)
+
+
+(CLEARSYMPTOMS)
+#S(HASH-TABLE :TEST FASTHASH-EQUAL)
+
+
+(symptom tenderness in abdomen)
+NIL
+
+(symptom x-ray shows stones)
+NIL
+
+(triage)
+ID: Q1 (Q5 Q2 PAIN) Y 
+ID: Q5 (Q8 Q6 TENDERNESS IN ABDOMEN) Y 
+ID: Q8 (D9 D8 X-RAY SHOWS STONES) Y 
+(TREAT KINDEY STONES)
+
+;; Loaded file p4LispRun.txt
+T
+[4]> 
+

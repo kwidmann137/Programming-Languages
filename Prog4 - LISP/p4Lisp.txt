@@ -29,8 +29,7 @@
 	`(if (getp ',symptom isa-ht)
 		(PROG ()
 			(putp (getp ',symptom isa-ht) symptom-HT 'T )
-			(RETURN  (putp ',symptom symptom-HT 'T) )
-
+			(putp ',symptom symptom-HT 'T)
 		)
 		( putp ',symptom symptom-HT 'T )
 	)
@@ -43,8 +42,9 @@
 ;;;         Pretty prints the tree starting from the root supplied
 (defun printTree (rootId)
 	(terpri)
-	(printWOP (getp rootId question-HT))
-    (terpri)
+	(printWOP (list rootId "Question:"))
+	(printWOP (cddr (getp rootId question-HT)) )
+	(princ "?")
 	(printQChildren rootId 1)
 )
 
@@ -60,42 +60,55 @@
 	(COND
 		( (getp left question-HT)
 			(PROG ()
-				(indent level)
-				(printWOP (list "Y:" left) )
-                (printWOP  (getp left question-HT) )
-                (terpri)
+				(printQuestion "Y:" level left)
 				(printQChildren left (1+ level))
 			)
 		)
 		((getp left diag-HT)
-			(PROG ()
-				(indent level)
-				(printWOP (list "Y:" left) )
-                (printWOP (getp left diag-HT) )
-                (terpri)
-			)
+			(printDiagnosis "Y:" level left)
 		)
 	)
 	( setf right (cadr (getp rootId question-HT)) )
 	(COND
 		( (getp right question-HT)
 			(PROG ()
-				(indent level)
-				(printWOP (list "N:" right) )
-                (printWOP (getp right question-HT) )
-                (terpri)
+				(printQuestion "N:" level right)
 				(printQChildren right (1+ level))
 			)
 		)
 		((getp right diag-HT)
-			(PROG ()
-				(indent level)
-				(printWOP (list "N:" right) )
-                (printWOP (getp right diag-HT))
-                (terpri)
-			)
+			(printDiagnosis "N:" level right)
 		)
 	)
+)
+
+;;; PRINTQUESTION
+;;; Parameters
+;;; 	tag - Tag indicates if it is the yes or no response to parent
+;;;		level - indicates the level in the tree
+;;;		question - question to print
+;;;	Purpose
+;;;		Prints a question formatted for the tree
+(defun printQuestion(tag level question)
+	(terpri)
+	(indent level)
+	(printWOP (list tag question "Question:") )
+    (printWOP  (cddr (getp question question-HT)))
+    (princ "?")
+)
+
+;;; PRINTDIAGNOSIS
+;;; Parameters
+;;; 	tag - Tag indicates if it is the yes or no response to parent
+;;;		level - indicates the level in the tree
+;;;		diag - diagnosis to print
+;;;	Purpose
+;;;		Prints a diagnosis formatted for the tree
+(defun printDiagnosis(tag level diag)
+	(terpri)
+	(indent level)
+	(printWOP (list tag diag "Diagnosis:") )
+    (printWOP (getp diag diag-HT) )
 )
 
 ;;; INDENT
@@ -130,10 +143,8 @@
 ;;;       Prints the list supplied without surrounding
 ;;;       parentheses.  A list must be supplied
 (defun printList(lis)
-
     (PRINC (CAR lis))
     (PRINC " ")
-
     (COND
         ( (CDR lis) (printList (CDR lis)) )
     )
@@ -147,23 +158,23 @@
 (defun triage ()
     (setf currQuestion (getp ROOT question-HT) )
     (setf currKey ROOT)
-    (terpri)
     (DO ( (currSymptom (cddr currQuestion) ) )
         ( (getp currKey DIAG-HT) (getp currKey diag-HT) )
         (COND
             ( (getp currSymptom symptom-HT)
                 (PROG ()
-                    (printWOP (list "ID:" currKey ":" currQuestion "? Y"))
+                	(terpri)
+                    (printWOP (list "ID:" currKey currQuestion "Y"))
                     (setf currKey (car currQuestion))
                 )
             )
             ( T (PROG ()
-                    (printWOP (list "ID:" currKey ":" currQuestion "? N"))
+            		(terpri)
+                    (printWOP (list "ID:" currKey currQuestion "N"))
                     (setf currKey (cadr currQuestion))
                 )
             )
         )
-        (terpri)
         (setf currQuestion (getp currKey question-HT) )
         (COND
             ( currSymptom (setf currSymptom (cddr currQuestion)) )
