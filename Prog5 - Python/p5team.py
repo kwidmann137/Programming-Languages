@@ -81,5 +81,5 @@ def print_team_records():
     Prints the records of all teams in the record dictionary
     """
     print("\t\t%-8s%-5s%-5s" % ("TEAM", "WINS", "LOSES"))
-    for team, record in teamRecordD.items():
+    for team, record in sorted(teamRecordD.items()):
         print("\t\t%-8s%-5s%-5s" % (team, record[0], record[1]))
