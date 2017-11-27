@@ -2,8 +2,9 @@ import sys
 import re
 import operator
 from Exceptions.FunctionError import FunctionError
-from Exceptions.PrefixSyntax import  PrefixSyntax
+from Exceptions.PrefixSyntax import PrefixSyntax
 
+# DICTIONARY OF OPERATIONS ALLOWED
 ops = { "+": operator.add,
         "-": operator.sub,
         "*": operator.mul,
@@ -13,12 +14,12 @@ ops = { "+": operator.add,
         "and": operator.and_,
         "or": operator.or_}
 
-inputFileName = sys.argv[1]
-
-inputFile = open(inputFileName, "r")
-
 
 def get_line():
+    """
+    Gets the next line from the input file
+    :return: the next lien or None if EOF
+    """
     current_line = inputFile.readline()
     if current_line == "":
         return None
@@ -27,6 +28,12 @@ def get_line():
 
 
 def parse_prefix(line):
+    """
+    Parses the given line into an array of each prefix operator/operand.
+    Can throw an error if invalid prefix syntax given
+    :param line: the line to parse
+    :return: array of operators/operands in order from the line
+    """
     valid_tokens = re.findall(r'[+-/*//()><]|or|and|\d+', line)
     all_tokens = re.findall(r'[+-/*//()><]|or|and|\w+|\d+', line)
     has_operators = False
@@ -53,7 +60,7 @@ def parse_prefix(line):
         prev_token = token
 
     if not has_operands or not has_operators:
-        raise PrefixSyntax("Missing operator or operands form statement: {}".format(line))
+        raise PrefixSyntax("Missing operator or operands from statement: {}".format(line))
     elif closing_paren < opening_paren:
         raise PrefixSyntax("Missing closing parentheses: {}".format(line))
     elif opening_paren < closing_paren:
@@ -65,6 +72,11 @@ def parse_prefix(line):
 
 
 def is_number(s):
+    """
+    Check if the given string is a valid number
+    :param s: string to evaluate
+    :return: true if s is a number, false otherwise
+    """
     try:
         float(s)
         return True
@@ -75,6 +87,12 @@ def is_number(s):
 
 
 def eval_operation(operation, operands):
+    """
+    evaluates a given operation on an array operands
+    :param operation: the operation to perform
+    :param operands: the operands to perform the operation on
+    :return: the result of the operation on all operands
+    """
     result = operands[0]
     if len(operands) < 2:
         raise FunctionError("Operation with less than two operands. '{}' requires 2.".format(operation))
@@ -84,6 +102,11 @@ def eval_operation(operation, operands):
 
 
 def eval_prefix(tokens):
+    """
+    Evaluates an array of tokens in prefix syntax
+    :param tokens: tokens to evaluate
+    :return: the result from evaluating the prefix tokens
+    """
     global currTokenPosition
     operation = None
     operands = []
@@ -106,6 +129,10 @@ def eval_prefix(tokens):
 
 
 def prefix_reader(line):
+    """
+    Parses a line with prefix syntax and evaluates it if valid
+    :param line: the string to parse and evaluate
+    """
     global currTokenPosition
     print("> {}".format(line))
     try:
@@ -119,12 +146,18 @@ def prefix_reader(line):
         print(e.message)
 
 
+# ******************** MAIN LOOP ************************
+
+# Get the file to read
+inputFileName = sys.argv[1]
+# open the file
+inputFile = open(inputFileName, "r")
+# get the first line
 currentLine = get_line()
-
-
+# init token position
 currTokenPosition = 0
 
-
+# read all lines from file and evaluate
 while currentLine is not None:
     prefix_reader(currentLine)
     currentLine = get_line()
