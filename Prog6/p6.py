@@ -1,11 +1,15 @@
 import sys
 import re
 import operator
+from Exceptions.FunctionError import FunctionError
+from Exceptions.PrefixSyntax import  PrefixSyntax
 
 ops = { "+": operator.add,
         "-": operator.sub,
         "*": operator.mul,
         "/": operator.truediv,
+        ">": operator.gt,
+        "<": operator.lt,
         "and": operator.and_,
         "or": operator.or_}
 
@@ -23,7 +27,41 @@ def get_line():
 
 
 def parse_prefix(line):
-    return re.findall(r'[+-/*//()]|\d+', line)
+    valid_tokens = re.findall(r'[+-/*//()><]|or|and|\d+', line)
+    all_tokens = re.findall(r'[+-/*//()><]|or|and|\w+|\d+', line)
+    has_operators = False
+    has_operands = False
+    opening_paren = 0
+    closing_paren = 0
+    prev_token = None
+    for token in all_tokens:
+        if token == "(":
+            opening_paren = opening_paren + 1
+        elif token == ")":
+            closing_paren = closing_paren + 1
+        elif is_number(token):
+            has_operands = True
+        elif token in ops:
+            if prev_token is not "(":
+                raise PrefixSyntax("Encountered operator({}) not in parentheses: {}".format(token, line))
+            has_operators = True
+        elif prev_token == '(':
+            raise FunctionError("Invalid operation supplied: {}".format(token))
+        else:
+            raise PrefixSyntax("Excepted an integer, but found str: {}".format(token))
+
+        prev_token = token
+
+    if not has_operands or not has_operators:
+        raise PrefixSyntax("Missing operator or operands form statement: {}".format(line))
+    elif closing_paren < opening_paren:
+        raise PrefixSyntax("Missing closing parentheses: {}".format(line))
+    elif opening_paren < closing_paren:
+        raise PrefixSyntax("Missing opening parentheses: {}".format(line))
+    elif opening_paren == 0 or closing_paren == 0:
+        raise PrefixSyntax("Missing parentheses: {}".format(line))
+
+    return valid_tokens
 
 
 def is_number(s):
@@ -36,42 +74,49 @@ def is_number(s):
     return False
 
 
-def prefix_eval(tokens):
-    global currTokenPosition
+def eval_operation(operation, operands):
+    result = operands[0]
+    if len(operands) < 2:
+        raise FunctionError("Operation with less than two operands. '{}' requires 2.".format(operation))
+    for index in range(1, len(operands), 1):
+        result = ops[operation](result, operands[index])
+    return result
 
-    operator = None
+
+def eval_prefix(tokens):
+    global currTokenPosition
+    operation = None
     operands = []
-    result = None
 
     while currTokenPosition < len(tokens):
-        print("CURR TOKEN {}".format(tokens[currTokenPosition]))
         if tokens[currTokenPosition] == '(':
-            currTokenPosition = currTokenPosition + 1
-            if operator is not None:
-                print("RECURSING")
-                print("OEPRATOR: {}".format(operator))
-                operands.append(prefix_eval(tokens))
+            if operation is not None:
+                operands.append(eval_prefix(tokens))
             else:
-                operator = tokens[currTokenPosition]
-                currTokenPosition = currTokenPosition + 1
+                operation = tokens[currTokenPosition + 1]
+                currTokenPosition = currTokenPosition + 2
         elif is_number(tokens[currTokenPosition]):
             operands.append(float(tokens[currTokenPosition]))
             currTokenPosition = currTokenPosition + 1
         elif tokens[currTokenPosition] == ')':
             currTokenPosition = currTokenPosition + 1
-            result = operands[0]
-            # print("OPERATOR: {}".format(operator))
-            # print("OPERANDS: {}".format(operands))
-            for index in range(1, len(operands), 1):
-                # print("Index: {}".format(index))
-                # print("Operator: {}".format(operator))
-                # print("FUNC: {}".format(ops[operator]))
-                # print("ARG: {}".format(operands[index]))
-                # print("EVAL - curr result = {}".format(result))
-                result = ops[operator](result, operands[index])
+            return eval_operation(operation, operands)
 
-    print("FINAL RESULT: {}".format(result))
-    return result
+    return None
+
+
+def prefix_reader(line):
+    global currTokenPosition
+    print("> {}".format(line))
+    try:
+        tokens = parse_prefix(line)
+        result = eval_prefix(tokens)
+        print(result)
+        currTokenPosition = 0
+    except FunctionError as e:
+        print(e.message)
+    except PrefixSyntax as e:
+        print(e.message)
 
 
 currentLine = get_line()
@@ -81,8 +126,5 @@ currTokenPosition = 0
 
 
 while currentLine is not None:
-    line_tokens = parse_prefix(currentLine)
-    print("CURR LINE {}".format(currentLine))
-    prefix_eval(line_tokens)
-    currTokenPosition = 0
+    prefix_reader(currentLine)
     currentLine = get_line()
